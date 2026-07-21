@@ -3,309 +3,561 @@
 
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>
-Bayesian Theorem Interactive Learning
-</title>
+    <title>
+        Bayesian Theorem Interactive Learning
+    </title>
 
 
-<style>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", sans-serif;
+        }
 
+        html {
+            scroll-behavior: smooth;
+        }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:"Segoe UI",sans-serif;
-}
+        body {
 
+            background: #020617;
+            color: white;
+            line-height: 1.6;
 
-html{
-scroll-behavior:smooth;
-}
+        }
 
 
-body{
 
-background:#020617;
-color:white;
-line-height:1.6;
+        /* NAVBAR */
 
-}
 
+        nav {
 
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(2, 6, 23, .8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
 
-/* NAVBAR */
+        }
 
 
-nav{
+        .logo {
 
-position:fixed;
-top:0;
-width:100%;
-padding:20px 8%;
-display:flex;
-justify-content:space-between;
-align-items:center;
-background:rgba(2,6,23,.8);
-backdrop-filter:blur(10px);
-z-index:1000;
+            font-size: 24px;
+            font-weight: bold;
+            color: #38bdf8;
 
-}
+        }
 
 
-.logo{
+        nav a {
 
-font-size:24px;
-font-weight:bold;
-color:#38bdf8;
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
 
-}
+        }
 
 
-nav a{
+        nav a:hover {
 
-color:white;
-text-decoration:none;
-margin-left:25px;
+            color: #38bdf8;
 
-}
+        }
 
 
-nav a:hover{
 
-color:#38bdf8;
 
-}
+        /* HERO */
 
 
+        .hero {
 
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
 
-/* HERO */
+        }
 
 
-.hero{
+        .background {
 
-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-text-align:center;
-overflow:hidden;
-position:relative;
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(45deg,
+                    #38bdf8,
+                    #a855f7);
 
-}
+            filter: blur(120px);
+            animation: move 6s infinite alternate;
 
+        }
 
-.background{
 
-position:absolute;
-width:500px;
-height:500px;
-background:linear-gradient(
-45deg,
-#38bdf8,
-#a855f7
-);
 
-filter:blur(120px);
-animation:move 6s infinite alternate;
+        @keyframes move {
 
-}
+            from {
+                transform: translate(-100px, -50px);
+            }
 
+            to {
+                transform: translate(100px, 50px);
+            }
 
+        }
 
-@keyframes move{
 
-from{
-transform:translate(-100px,-50px);
-}
 
-to{
-transform:translate(100px,50px);
-}
+        .hero-content {
 
-}
+            position: relative;
+            z-index: 2;
 
+        }
 
 
-.hero-content{
+        .hero h1 {
 
-position:relative;
-z-index:2;
+            font-size: 70px;
 
-}
+            background: linear-gradient(90deg,
+                    #38bdf8,
+                    #a855f7);
 
+            -webkit-background-clip: text;
+            color: transparent;
 
-.hero h1{
+        }
 
-font-size:70px;
 
-background:linear-gradient(
-90deg,
-#38bdf8,
-#a855f7
-);
 
--webkit-background-clip:text;
-color:transparent;
+        .hero p {
 
-}
+            font-size: 24px;
+            color: #cbd5e1;
+            margin-top: 20px;
 
+        }
 
 
-.hero p{
 
-font-size:24px;
-color:#cbd5e1;
-margin-top:20px;
+        .btn {
 
-}
+            margin-top: 30px;
+            padding: 15px 35px;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
 
+            background: #38bdf8;
+            font-size: 18px;
 
+            transition: .3s;
 
-.btn{
+        }
 
-margin-top:30px;
-padding:15px 35px;
-border-radius:30px;
-border:none;
-cursor:pointer;
 
-background:#38bdf8;
-font-size:18px;
 
-transition:.3s;
+        .btn:hover {
 
-}
+            transform: scale(1.1);
+            background: #a855f7;
+            color: white;
 
+        }
 
 
-.btn:hover{
 
-transform:scale(1.1);
-background:#a855f7;
-color:white;
 
-}
 
+        /* COMMON */
 
 
+        section {
 
+            padding: 90px 10%;
 
-/* COMMON */
+        }
 
 
-section{
+        .title {
 
-padding:90px 10%;
+            text-align: center;
+            font-size: 42px;
+            margin-bottom: 50px;
 
-}
+        }
 
 
-.title{
 
-text-align:center;
-font-size:42px;
-margin-bottom:50px;
 
-}
+        /* CARDS */
 
 
+        .container {
 
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
 
-/* CARDS */
+        }
 
 
-.container{
+        .card {
 
-display:flex;
-gap:30px;
-flex-wrap:wrap;
+            flex: 1;
 
-}
+            background: #111827;
+            padding: 30px;
 
+            border-radius: 20px;
 
-.card{
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .4);
 
-flex:1;
+            transition: .3s;
 
-background:#111827;
-padding:30px;
+        }
 
-border-radius:20px;
 
-box-shadow:
-0 10px 30px rgba(0,0,0,.4);
+        .card:hover {
 
-transition:.3s;
+            transform: translateY(-10px);
 
-}
+        }
 
 
-.card:hover{
 
-transform:translateY(-10px);
+        .card h2 {
 
-}
+            color: #38bdf8;
+            margin-bottom: 20px;
 
+        }
 
 
-.card h2{
 
-color:#38bdf8;
-margin-bottom:20px;
 
-}
 
+        /* STORY */
 
 
+        .emoji {
 
+            font-size: 100px;
+            text-align: center;
 
-/* STORY */
+            animation: bounce 2s infinite;
 
+        }
 
-.emoji{
 
-font-size:100px;
-text-align:center;
 
-animation:bounce 2s infinite;
+        @keyframes bounce {
 
-}
+            50% {
 
+                transform: translateY(-20px);
 
+            }
 
-@keyframes bounce{
+        }
 
-50%{
 
-transform:translateY(-20px);
 
-}
 
-}
+        .definition {
 
+            background: #111827;
+            padding: 35px;
+            border-left: 6px solid #38bdf8;
+            border-radius: 15px;
 
+            font-size: 20px;
 
+        }
 
-.definition{
 
-background:#111827;
-padding:35px;
-border-left:6px solid #38bdf8;
-border-radius:15px;
+        /* --- NEW CHARACTER STYLES --- */
 
-font-size:20px;
+        .characters {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
 
-}
+        .character {
+            background: #1e293b;
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+            width: 180px;
+            transition: .4s;
+        }
 
+        .character:hover {
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 0 25px #38bdf8;
+        }
 
+        .avatar {
+            font-size: 70px;
+            animation: characterMove 2s infinite alternate;
+        }
 
+        @keyframes characterMove {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(-12px);
+            }
+        }
 
-</style>
+        .character h3 {
+            color: #38bdf8;
+            margin: 10px;
+        }
+
+        .story-flow {
+            font-size: 25px;
+            text-align: center;
+            margin-top: 30px;
+            animation: flow 3s infinite;
+        }
+
+        @keyframes flow {
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+
+        /* --- rest of your existing styles --- */
+
+
+        input {
+
+            display: block;
+
+            width: 100%;
+
+            padding: 15px;
+
+            margin: 15px 0;
+
+            border-radius: 10px;
+
+            border: none;
+
+            font-size: 18px;
+
+        }
+
+
+
+        .progress {
+
+            height: 35px;
+
+            background: #334155;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            margin: 15px 0;
+
+        }
+
+
+
+        .progress div {
+
+            height: 100%;
+
+            width: 10%;
+
+            background: linear-gradient(90deg,
+                    #38bdf8,
+                    #a855f7);
+
+            transition: 2s;
+
+        }
+
+
+
+        label {
+
+            font-size: 18px;
+
+            color: #cbd5e1;
+
+        }
+
+
+        .quiz-box {
+
+            max-width: 900px;
+
+            margin: auto;
+
+        }
+
+
+
+        .option {
+
+
+            width: 100%;
+
+            padding: 15px;
+
+            margin: 10px 0;
+
+            border: none;
+
+            border-radius: 15px;
+
+            background: #1e293b;
+
+            color: white;
+
+            font-size: 18px;
+
+            cursor: pointer;
+
+            transition: .3s;
+
+
+        }
+
+
+
+        .option:hover {
+
+            background: #38bdf8;
+
+            color: black;
+
+            transform: translateX(10px);
+
+        }
+
+
+
+
+        .correct {
+
+            background: #22c55e !important;
+
+        }
+
+
+
+        .wrong {
+
+            background: #ef4444 !important;
+
+        }
+
+
+
+
+        .final {
+
+            text-align: center;
+
+            font-size: 22px;
+
+            animation: glow 3s infinite alternate;
+
+        }
+
+
+
+        @keyframes glow {
+
+
+            from {
+
+                box-shadow: 0 0 10px #38bdf8;
+
+            }
+
+
+            to {
+
+                box-shadow: 0 0 40px #a855f7;
+
+            }
+
+
+        }
+
+
+
+
+        footer {
+
+
+            padding: 40px;
+
+            text-align: center;
+
+            background: #020617;
+
+            border-top: 1px solid #334155;
+
+            color: #cbd5e1;
+
+
+        }
+
+
+
+        footer h2 {
+
+            color: #38bdf8;
+
+            font-size: 35px;
+
+        }
+
+
+        /* process animation */
+        .process {
+            text-align: center;
+            animation: floatCard 3s infinite alternate;
+        }
+
+        @keyframes floatCard {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(-15px);
+            }
+        }
+    </style>
 
 
 </head>
@@ -315,1472 +567,1244 @@ font-size:20px;
 
 
 
-<nav>
+    <nav>
 
 
-<div class="logo">
+        <div class="logo">
 
-BayesLearn
+            BayesLearn
 
-</div>
+        </div>
 
 
-<div>
+        <div>
 
-<a href="#story">
-Story
-</a>
+            <a href="#story">
+                Story
+            </a>
 
-<a href="#concept">
-Concept
-</a>
+            <a href="#concept">
+                Concept
+            </a>
 
-<a href="#calculator">
-Calculator
-</a>
+            <a href="#calculator">
+                Calculator
+            </a>
 
-<a href="#quiz">
-Quiz
-</a>
+            <a href="#quiz">
+                Quiz
+            </a>
 
-</div>
+        </div>
 
 
-</nav>
+    </nav>
 
 
 
 
 
-<section class="hero">
+    <section class="hero">
 
 
-<div class="background"></div>
+        <div class="background"></div>
 
 
-<div class="hero-content">
+        <div class="hero-content">
 
 
-<h1>
-Bayesian Theorem
-</h1>
+            <h1>
+                Bayesian Theorem
+            </h1>
 
 
-<p>
-Learn probability through stories, simulations and AI examples
-</p>
+            <p>
+                Learn probability through stories, simulations and AI examples
+            </p>
 
 
-<button class="btn" onclick="startLearning()">
+            <button class="btn" onclick="startLearning()">
 
-Start Learning
+                Start Learning
 
-</button>
+            </button>
 
 
-</div>
+        </div>
 
 
-</section>
+    </section>
 
 
 
 
 
-<section id="story">
+    <!-- ============ UPDATED STORY SECTION WITH CHARACTERS ============ -->
 
+    <section id="story">
 
-<h1 class="title">
-The Detective Story 🕵️
-</h1>
+        <h1 class="title">
+            The Detective Story 🕵️
+        </h1>
 
 
+        <div class="container">
 
-<div class="container">
 
+            <!-- CHARACTERS CARD -->
+            <div class="card">
 
-<div class="card emoji">
+                <h2>Characters</h2>
 
-🕵️
+                <div class="characters">
 
-</div>
+                    <div class="character">
+                        <div class="avatar">🕵️</div>
+                        <h3>Detective Alex</h3>
+                        <p>Collects evidence and updates beliefs.</p>
+                    </div>
 
+                    <div class="character">
+                        <div class="avatar">👤</div>
+                        <h3>Suspect Bob</h3>
+                        <p>The person being investigated.</p>
+                    </div>
 
+                    <div class="character">
+                        <div class="avatar">🔬</div>
+                        <h3>Dr. Maya</h3>
+                        <p>Provides scientific evidence.</p>
+                    </div>
 
-<div class="card">
+                    <div class="character">
+                        <div class="avatar">📄</div>
+                        <h3>Evidence</h3>
+                        <p>New information changes probability.</p>
+                    </div>
 
+                </div>
 
-<h2>
-The Mystery Case
-</h2>
+            </div>
 
 
-<p>
 
-Detective Alex is investigating a crime.
+            <!-- STORY CARD -->
 
-Initially, Alex has a small suspicion about a suspect.
+            <div class="card">
 
-After collecting fingerprint evidence,
-Alex updates the probability of the suspect being guilty.
+                <h2>
+                    The Mystery Case 🔍
+                </h2>
 
-</p>
 
+                <p>
 
-<br>
+                    Detective Alex is investigating a mysterious crime.
 
+                    At the beginning, Alex thinks Bob might be guilty,
+                    but the confidence level is low.
 
-<p>
+                </p>
 
-This process of updating beliefs using new evidence
-is the foundation of Bayesian reasoning.
 
-</p>
+                <br>
 
 
-</div>
+                <p>
 
+                    Dr. Maya discovers fingerprint evidence.
+                    The new evidence changes Alex's belief.
 
-</div>
+                    Instead of guessing, Alex uses Bayesian Theorem
+                    to calculate the updated probability.
 
+                </p>
 
-</section>
 
+                <br>
 
 
+                <div class="story-flow">
 
+                    <span>🕵️ Alex</span>
 
-<section id="concept">
+                    ➡️
 
+                    <span>📄 Evidence</span>
 
-<h1 class="title">
-Understanding Bayes Theorem
-</h1>
+                    ➡️
 
+                    <span>🧮 Bayes Formula</span>
 
+                    ➡️
 
-<div class="definition">
+                    <span>🎯 Decision</span>
 
+                </div>
 
-Bayesian Theorem calculates the probability of an event
-based on previous knowledge and new evidence.
 
+            </div>
 
-<br><br>
 
+        </div>
 
-It answers:
 
-<b>
-"How should our belief change when new information arrives?"
-</b>
+    </section>
 
 
-</div>
 
 
 
-<div class="card" style="margin-top:30px;text-align:center;font-size:35px;color:#38bdf8;">
+    <section id="concept">
 
 
-P(A|B) =
-(P(B|A) × P(A)) / P(B)
+        <h1 class="title">
+            Understanding Bayes Theorem
+        </h1>
 
 
-</div>
 
+        <div class="definition">
 
-</section>
 
-  <!-- ================= CALCULATOR ================= -->
+            Bayesian Theorem calculates the probability of an event
+            based on previous knowledge and new evidence.
 
-<section id="calculator">
 
+            <br><br>
 
-<h1 class="title">
-Interactive Bayes Calculator 🧮
-</h1>
 
+            It answers:
 
-<div class="container">
+            <b>
+                "How should our belief change when new information arrives?"
+            </b>
 
 
-<div class="card">
+        </div>
 
 
-<h2>
-Enter Probability Values
-</h2>
 
+        <div class="card" style="margin-top:30px;text-align:center;font-size:35px;color:#38bdf8;">
 
-<label>
-Prior Probability P(A) (%)
-</label>
 
-<input id="pa" type="number" value="10">
+            P(A|B) =
+            (P(B|A) × P(A)) / P(B)
 
 
+        </div>
 
-<label>
-Likelihood P(B|A) (%)
-</label>
 
-<input id="pba" type="number" value="80">
+    </section>
 
+    <!-- ================= CALCULATOR ================= -->
 
+    <section id="calculator">
 
-<label>
-Evidence Probability P(B) (%)
-</label>
 
-<input id="pb" type="number" value="20">
+        <h1 class="title">
+            Interactive Bayes Calculator 🧮
+        </h1>
 
 
-<button class="btn" onclick="calculate()">
+        <div class="container">
 
-Calculate Probability
 
-</button>
+            <div class="card">
 
 
-<h2 id="answer">
+                <h2>
+                    Enter Probability Values
+                </h2>
 
-Result: --
 
-</h2>
+                <label>
+                    Prior Probability P(A) (%)
+                </label>
 
+                <input id="pa" type="number" value="10">
 
-</div>
 
 
+                <label>
+                    Likelihood P(B|A) (%)
+                </label>
 
+                <input id="pba" type="number" value="80">
 
-<div class="card">
 
 
-<h2>
-Formula Steps
-</h2>
+                <label>
+                    Evidence Probability P(B) (%)
+                </label>
 
+                <input id="pb" type="number" value="20">
 
-<p id="steps">
 
-Enter values and calculate.
+                <button class="btn" onclick="calculate()">
 
-</p>
+                    Calculate Probability
 
+                </button>
 
-</div>
 
+                <h2 id="answer">
 
-</div>
+                    Result: --
 
+                </h2>
 
-</section>
 
+            </div>
 
 
 
 
-<!-- ================= MEDICAL EXAMPLE ================= -->
+            <div class="card">
 
 
-<section>
+                <h2>
+                    Formula Steps
+                </h2>
 
 
-<h1 class="title">
+                <p id="steps">
 
-Medical Diagnosis Example 🏥
+                    Enter values and calculate.
 
-</h1>
+                </p>
 
 
+            </div>
 
-<div class="container">
 
+        </div>
 
-<div class="card">
 
+    </section>
 
-<h2>
-Problem
-</h2>
 
 
-<p>
 
-A disease affects only 1% of people.
 
-A medical test is 90% accurate.
+    <!-- ================= MEDICAL EXAMPLE ================= -->
 
-A person tests positive.
 
-What is the chance the person actually has the disease?
+    <section>
 
-</p>
 
+        <h1 class="title">
 
-</div>
+            Medical Diagnosis Example 🏥
 
+        </h1>
 
 
-<div class="card">
 
+        <div class="container">
 
-<h2>
-Bayesian Thinking
-</h2>
 
+            <div class="card">
 
-<p>
 
-Bayes theorem combines:
+                <h2>
+                    Problem
+                </h2>
 
-<br><br>
 
-✔ Previous probability
+                <p>
 
-<br>
+                    A disease affects only 1% of people.
 
-✔ Test accuracy
+                    A medical test is 90% accurate.
 
-<br>
+                    A person tests positive.
 
-✔ New evidence
+                    What is the chance the person actually has the disease?
 
-<br><br>
+                </p>
 
-to produce a better prediction.
 
-</p>
+            </div>
 
 
-</div>
 
+            <div class="card">
 
-</div>
 
+                <h2>
+                    Bayesian Thinking
+                </h2>
 
-</section>
 
+                <p>
 
+                    Bayes theorem combines:
 
+                    <br><br>
 
+                    ✔ Previous probability
 
+                    <br>
 
+                    ✔ Test accuracy
 
-<!-- ================= GRAPH ================= -->
+                    <br>
 
+                    ✔ New evidence
 
-<section>
+                    <br><br>
 
+                    to produce a better prediction.
 
-<h1 class="title">
+                </p>
 
-Probability Update Visualization 📊
 
-</h1>
+            </div>
 
 
+        </div>
 
-<div class="card">
 
+    </section>
 
-<h2>
-Before Evidence
-</h2>
 
 
-<div class="progress">
 
-<div id="beforeBar"></div>
 
-</div>
 
 
-<br>
+    <!-- ================= GRAPH ================= -->
 
 
+    <section>
 
-<h2>
-After Evidence
-</h2>
 
+        <h1 class="title">
 
-<div class="progress">
+            Probability Update Visualization 📊
 
-<div id="afterBar"></div>
+        </h1>
 
-</div>
 
 
+        <div class="card">
 
-<button class="btn" onclick="animateGraph()">
 
-Show Evidence Effect
+            <h2>
+                Before Evidence
+            </h2>
 
-</button>
 
+            <div class="progress">
 
+                <div id="beforeBar"></div>
 
-</div>
+            </div>
 
 
-</section>
+            <br>
 
 
 
+            <h2>
+                After Evidence
+            </h2>
 
 
+            <div class="progress">
 
+                <div id="afterBar"></div>
 
-<style>
+            </div>
 
 
 
-input{
+            <button class="btn" onclick="animateGraph()">
 
-display:block;
+                Show Evidence Effect
 
-width:100%;
+            </button>
 
-padding:15px;
 
-margin:15px 0;
 
-border-radius:10px;
+        </div>
 
-border:none;
 
-font-size:18px;
+    </section>
 
-}
 
 
 
-.progress{
 
-height:35px;
+    <script>
 
-background:#334155;
 
-border-radius:20px;
+        function calculate() {
 
-overflow:hidden;
 
-margin:15px 0;
 
-}
+            let A =
+                Number(document.getElementById("pa").value) / 100;
 
 
+            let BA =
+                Number(document.getElementById("pba").value) / 100;
 
-.progress div{
 
-height:100%;
+            let B =
+                Number(document.getElementById("pb").value) / 100;
 
-width:10%;
 
-background:linear-gradient(
-90deg,
-#38bdf8,
-#a855f7
-);
 
-transition:2s;
+            if (B === 0) {
 
-}
+                document.getElementById("answer").innerHTML =
+                    "Invalid Probability";
 
+                return;
 
+            }
 
-label{
 
-font-size:18px;
 
-color:#cbd5e1;
+            let result =
+                ((BA * A) / B) * 100;
 
-}
 
 
+            document.getElementById("answer").innerHTML =
 
+                "Updated Probability = " +
+                result.toFixed(2) +
+                "%";
 
-</style>
 
 
+            document.getElementById("steps").innerHTML =
 
 
+                `
+        Step 1:<br>
+        P(A) = ${A*100}%
 
 
-<script>
+        <br><br>
 
+        Step 2:<br>
+        P(B|A) = ${BA*100}%
 
-function calculate(){
 
+        <br><br>
 
 
-let A =
-Number(document.getElementById("pa").value)/100;
+        Step 3:<br>
 
+        Bayes Formula Applied
 
-let BA =
-Number(document.getElementById("pba").value)/100;
 
+        <br><br>
 
-let B =
-Number(document.getElementById("pb").value)/100;
 
+        Final Answer:
 
+        <b>
+        ${result.toFixed(2)}%
+        </b>
 
-if(B===0){
+        `;
 
-document.getElementById("answer").innerHTML=
-"Invalid Probability";
 
-return;
 
-}
+            document.getElementById("afterBar")
+                .style.width = result + "%";
 
 
 
-let result =
-((BA*A)/B)*100;
+        }
 
 
 
-document.getElementById("answer").innerHTML=
 
-"Updated Probability = "
-+
-result.toFixed(2)
-+
-"%";
 
 
+        function animateGraph() {
 
-document.getElementById("steps").innerHTML=
 
+            document.getElementById("beforeBar")
+                .style.width = "15%";
 
-`
-Step 1:<br>
-P(A) = ${A*100}%
 
+            document.getElementById("afterBar")
+                .style.width = "75%";
 
-<br><br>
 
-Step 2:<br>
-P(B|A) = ${BA*100}%
+        }
 
 
-<br><br>
 
 
-Step 3:<br>
 
-Bayes Formula Applied
 
 
-<br><br>
+        function startLearning() {
 
+            document.getElementById("story")
+                .scrollIntoView();
 
-Final Answer:
+        }
+    </script>
+    <!-- ================= APPLICATIONS ================= -->
 
-<b>
-${result.toFixed(2)}%
-</b>
 
-`;
+    <section>
 
 
+        <h1 class="title">
+            Bayesian Theorem in Real Life 🌍
+        </h1>
 
-document.getElementById("afterBar")
-.style.width=result+"%";
 
 
+        <div class="container">
 
-}
 
+            <div class="card">
 
 
+                <h2>
+                    📧 Spam Detection
+                </h2>
 
 
+                <p>
 
-function animateGraph(){
+                    Email applications use Bayesian models to analyze:
 
+                    <br><br>
 
-document.getElementById("beforeBar")
-.style.width="15%";
+                    • Words in emails
 
+                    <br>
+                    • Sender information
 
-document.getElementById("afterBar")
-.style.width="75%";
+                    <br>
+                    • Previous email patterns
 
+                    <br><br>
 
-}
+                    The system predicts whether a message is spam
+                    or a genuine email.
 
+                </p>
 
 
+            </div>
 
 
 
 
-function startLearning(){
+            <div class="card">
 
-document.getElementById("story")
-.scrollIntoView();
 
-}
+                <h2>
+                    🤖 Artificial Intelligence
+                </h2>
 
 
-</script>
-<!-- ================= APPLICATIONS ================= -->
+                <p>
 
+                    Machine learning systems use Bayesian methods
+                    to update predictions when new data arrives.
 
-<section>
+                    <br><br>
 
+                    Examples:
 
-<h1 class="title">
-Bayesian Theorem in Real Life 🌍
-</h1>
+                    <br>
 
+                    • Recommendation systems
 
+                    <br>
 
-<div class="container">
+                    • AI assistants
 
+                    <br>
 
-<div class="card">
+                    • Prediction models
 
+                </p>
 
-<h2>
-📧 Spam Detection
-</h2>
 
+            </div>
 
-<p>
 
-Email applications use Bayesian models to analyze:
 
-<br><br>
 
-• Words in emails
 
-<br>
-• Sender information
+            <div class="card">
 
-<br>
-• Previous email patterns
 
-<br><br>
+                <h2>
+                    🔍 Search Engines
+                </h2>
 
-The system predicts whether a message is spam
-or a genuine email.
 
-</p>
+                <p>
 
+                    Search engines estimate the probability of
+                    the user's intention and improve search results
+                    using probabilistic models.
 
-</div>
+                </p>
 
 
+            </div>
 
 
-<div class="card">
 
+        </div>
 
-<h2>
-🤖 Artificial Intelligence
-</h2>
 
+    </section>
 
-<p>
 
-Machine learning systems use Bayesian methods
-to update predictions when new data arrives.
 
-<br><br>
 
-Examples:
 
-<br>
 
-• Recommendation systems
 
-<br>
+    <!-- ================= ML CONNECTION ================= -->
 
-• AI assistants
 
-<br>
+    <section>
 
-• Prediction models
 
-</p>
+        <h1 class="title">
 
+            Bayesian Learning in Machine Learning 🤖
 
-</div>
+        </h1>
 
 
 
+        <div class="container">
 
 
-<div class="card">
+            <div class="card">
 
 
-<h2>
-🔍 Search Engines
-</h2>
+                <h2>
+                    Traditional Learning
+                </h2>
 
 
-<p>
+                <p>
 
-Search engines estimate the probability of
-the user's intention and improve search results
-using probabilistic models.
+                    A model learns from existing data and creates
+                    a prediction.
 
-</p>
+                </p>
 
 
-</div>
+                <div class="emoji">
 
+                    📚
 
+                </div>
 
-</div>
 
+            </div>
 
-</section>
 
 
 
 
+            <div class="card">
 
 
+                <h2>
+                    Bayesian Learning
+                </h2>
 
-<!-- ================= ML CONNECTION ================= -->
 
+                <p>
 
-<section>
+                    A model starts with a belief and continuously
+                    updates it when new information is received.
 
+                </p>
 
-<h1 class="title">
 
-Bayesian Learning in Machine Learning 🤖
+                <div class="emoji">
 
-</h1>
+                    🔄
 
+                </div>
 
 
-<div class="container">
+            </div>
 
 
-<div class="card">
 
+            <div class="card">
 
-<h2>
-Traditional Learning
-</h2>
 
+                <h2>
+                    Result
+                </h2>
 
-<p>
 
-A model learns from existing data and creates
-a prediction.
+                <p>
 
-</p>
+                    Better decisions under uncertainty.
 
+                    Bayesian approaches are useful when data is limited
+                    or changing.
 
-<div class="emoji">
+                </p>
 
-📚
 
-</div>
+                <div class="emoji">
 
+                    🎯
 
-</div>
+                </div>
 
 
+            </div>
 
 
 
-<div class="card">
+        </div>
 
 
-<h2>
-Bayesian Learning
-</h2>
+    </section>
 
 
-<p>
 
-A model starts with a belief and continuously
-updates it when new information is received.
 
-</p>
 
 
-<div class="emoji">
+    <!-- ================= PROCESS ANIMATION ================= -->
 
-🔄
 
-</div>
+    <section>
 
 
-</div>
+        <h1 class="title">
 
+            How Bayes Works ⚙️
 
+        </h1>
 
-<div class="card">
 
 
-<h2>
-Result
-</h2>
+        <div class="container">
 
 
-<p>
+            <div class="card process">
 
-Better decisions under uncertainty.
 
-Bayesian approaches are useful when data is limited
-or changing.
+                <h2>
+                    1. Initial Belief
+                </h2>
 
-</p>
+                <p>
 
+                    Start with previous knowledge.
 
-<div class="emoji">
+                </p>
 
-🎯
 
-</div>
+            </div>
 
 
-</div>
 
+            <div class="card process">
 
 
-</div>
+                <h2>
+                    2. New Evidence
+                </h2>
 
 
-</section>
+                <p>
 
+                    Collect additional information.
 
+                </p>
 
 
+            </div>
 
 
-<!-- ================= PROCESS ANIMATION ================= -->
 
 
-<section>
+            <div class="card process">
 
 
-<h1 class="title">
+                <h2>
+                    3. Update Belief
+                </h2>
 
-How Bayes Works ⚙️
 
-</h1>
+                <p>
 
+                    Calculate new probability.
 
+                </p>
 
-<div class="container">
 
+            </div>
 
-<div class="card process">
 
 
-<h2>
-1. Initial Belief
-</h2>
+        </div>
 
-<p>
 
-Start with previous knowledge.
+    </section>
 
-</p>
 
 
-</div>
 
 
+    <!-- ================= QUIZ SECTION ================= -->
 
-<div class="card process">
 
+    <section id="quiz">
 
-<h2>
-2. New Evidence
-</h2>
 
+        <h1 class="title">
 
-<p>
+            Test Your Knowledge 🧠
 
-Collect additional information.
+        </h1>
 
-</p>
 
 
-</div>
+        <div class="card quiz-box">
 
 
+            <h2>
+                Question 1
+            </h2>
 
 
-<div class="card process">
+            <p>
+                What does Bayesian Theorem calculate?
+            </p>
 
 
-<h2>
-3. Update Belief
-</h2>
+            <button class="option" onclick="checkAnswer(this,false)">
+                Only average values
+            </button>
 
 
-<p>
+            <button class="option" onclick="checkAnswer(this,true)">
+                Probability after receiving new evidence
+            </button>
 
-Calculate new probability.
 
-</p>
+            <button class="option" onclick="checkAnswer(this,false)">
+                Only mathematical formulas
+            </button>
 
 
-</div>
 
+            <hr>
 
 
-</div>
 
+            <h2>
+                Question 2
+            </h2>
 
-</section>
 
+            <p>
+                Bayesian Learning is mainly used in:
+            </p>
 
 
 
+            <button class="option" onclick="checkAnswer(this,true)">
+                Artificial Intelligence and Machine Learning
+            </button>
 
 
+            <button class="option" onclick="checkAnswer(this,false)">
+                Computer hardware repair
+            </button>
 
-<style>
 
+            <button class="option" onclick="checkAnswer(this,false)">
+                Image editing only
+            </button>
 
-.emoji{
 
-font-size:70px;
 
-text-align:center;
 
-animation:bounce 2s infinite;
+            <hr>
 
-}
 
 
+            <h2>
+                Question 3
+            </h2>
 
-.process{
 
-text-align:center;
+            <p>
+                P(A|B) represents:
+            </p>
 
-animation:floatCard 3s infinite alternate;
 
-}
 
+            <button class="option" onclick="checkAnswer(this,true)">
+                Probability of A after observing B
+            </button>
 
 
-@keyframes floatCard{
+            <button class="option" onclick="checkAnswer(this,false)">
+                Probability of B without evidence
+            </button>
 
 
-from{
+            <button class="option" onclick="checkAnswer(this,false)">
+                Total number of events
+            </button>
 
-transform:translateY(0);
 
-}
 
+            <h2 id="score">
 
-to{
+                Score: 0 / 3
 
-transform:translateY(-15px);
+            </h2>
 
-}
 
 
-}
+            <button class="btn" onclick="restartQuiz()">
 
+                Restart Quiz
 
+            </button>
 
-</style>
 
-  <!-- ================= QUIZ SECTION ================= -->
 
+        </div>
 
-<section id="quiz">
 
 
-<h1 class="title">
+    </section>
 
-Test Your Knowledge 🧠
 
-</h1>
 
 
 
-<div class="card quiz-box">
 
 
-<h2>
-Question 1
-</h2>
 
+    <!-- ================= FINAL SECTION ================= -->
 
-<p>
-What does Bayesian Theorem calculate?
-</p>
 
+    <section>
 
-<button class="option" onclick="checkAnswer(this,false)">
-Only average values
-</button>
 
+        <div class="card final">
 
-<button class="option" onclick="checkAnswer(this,true)">
-Probability after receiving new evidence
-</button>
 
+            <h1>
+                🎓 Learning Completed
+            </h1>
 
-<button class="option" onclick="checkAnswer(this,false)">
-Only mathematical formulas
-</button>
 
 
+            <p>
 
-<hr>
 
+                You explored Bayesian Theorem through:
 
+                <br><br>
 
-<h2>
-Question 2
-</h2>
+                ✔ Story-based learning
 
+                <br>
 
-<p>
-Bayesian Learning is mainly used in:
-</p>
+                ✔ Interactive calculations
 
+                <br>
 
+                ✔ Real-world applications
 
-<button class="option" onclick="checkAnswer(this,true)">
-Artificial Intelligence and Machine Learning
-</button>
+                <br>
 
+                ✔ Machine Learning concepts
 
-<button class="option" onclick="checkAnswer(this,false)">
-Computer hardware repair
-</button>
+                <br>
 
+                ✔ Knowledge testing
 
-<button class="option" onclick="checkAnswer(this,false)">
-Image editing only
-</button>
 
+                <br><br>
 
 
+                <b>
 
-<hr>
+                    "Bayesian reasoning helps machines and humans
+                    make better decisions under uncertainty."
 
+                </b>
 
 
-<h2>
-Question 3
-</h2>
+            </p>
 
 
-<p>
-P(A|B) represents:
-</p>
 
+        </div>
 
 
-<button class="option" onclick="checkAnswer(this,true)">
-Probability of A after observing B
-</button>
+    </section>
 
 
-<button class="option" onclick="checkAnswer(this,false)">
-Probability of B without evidence
-</button>
 
 
-<button class="option" onclick="checkAnswer(this,false)">
-Total number of events
-</button>
 
 
 
-<h2 id="score">
 
-Score: 0 / 3
+    <!-- ================= FOOTER ================= -->
 
-</h2>
+    <footer>
 
 
+        <h2>
+            BayesLearn
+        </h2>
 
-<button class="btn" onclick="restartQuiz()">
 
-Restart Quiz
+        <p>
 
-</button>
+            Interactive Bayesian Theorem Learning Platform
 
+        </p>
 
 
-</div>
+        <br>
 
 
+        <p>
 
-</section>
+            Created by
 
+            <b>
+                Soorya S Rajesh
+            </b>
 
+        </p>
 
 
+        <p>
 
+            Computer Science Engineering Student
 
+        </p>
 
 
-<!-- ================= FINAL SECTION ================= -->
+        <br>
 
 
-<section>
+        <p>
 
+            © 2026 All Rights Reserved
 
-<div class="card final">
+        </p>
 
 
-<h1>
-🎓 Learning Completed
-</h1>
+    </footer>
 
 
 
-<p>
 
 
-You explored Bayesian Theorem through:
 
-<br><br>
 
-✔ Story-based learning
+    <script>
 
-<br>
 
-✔ Interactive calculations
+        let quizScore = 0;
 
-<br>
 
-✔ Real-world applications
 
-<br>
+        function checkAnswer(button, correct) {
 
-✔ Machine Learning concepts
 
-<br>
+            if (button.disabled)
+                return;
 
-✔ Knowledge testing
 
 
-<br><br>
+            if (correct) {
 
+                quizScore++;
 
-<b>
+                button.classList.add("correct");
 
-"Bayesian reasoning helps machines and humans
-make better decisions under uncertainty."
 
-</b>
+            } else {
 
+                button.classList.add("wrong");
 
-</p>
+            }
 
 
 
-</div>
+            button.disabled = true;
 
 
-</section>
 
+            document.getElementById("score").innerHTML =
 
+                "Score: " +
+                quizScore +
+                " / 3";
 
 
+        }
 
 
 
 
-<!-- ================= FOOTER ================= -->
 
-<footer>
+        function restartQuiz() {
 
 
-<h2>
-BayesLearn
-</h2>
+            quizScore = 0;
 
 
-<p>
+            document.getElementById("score").innerHTML =
+                "Score: 0 / 3";
 
-Interactive Bayesian Theorem Learning Platform
 
-</p>
 
+            let buttons = document.querySelectorAll(".option");
 
-<br>
 
+            buttons.forEach(btn => {
 
-<p>
 
-Created by
+                btn.disabled = false;
 
-<b>
-Soorya S Rajesh
-</b>
+                btn.classList.remove("correct");
 
-</p>
+                btn.classList.remove("wrong");
 
 
-<p>
+            });
 
-Computer Science Engineering Student
 
-</p>
-
-
-<br>
-
-
-<p>
-
-© 2026 All Rights Reserved
-
-</p>
-
-
-</footer>
-
-
-
-
-
-
-
-
-
-<style>
-
-
-.quiz-box{
-
-max-width:900px;
-
-margin:auto;
-
-}
-
-
-
-.option{
-
-
-width:100%;
-
-padding:15px;
-
-margin:10px 0;
-
-border:none;
-
-border-radius:15px;
-
-background:#1e293b;
-
-color:white;
-
-font-size:18px;
-
-cursor:pointer;
-
-transition:.3s;
-
-
-}
-
-
-
-.option:hover{
-
-background:#38bdf8;
-
-color:black;
-
-transform:translateX(10px);
-
-}
-
-
-
-
-.correct{
-
-background:#22c55e!important;
-
-}
-
-
-
-.wrong{
-
-background:#ef4444!important;
-
-}
-
-
-
-
-.final{
-
-text-align:center;
-
-font-size:22px;
-
-animation:glow 3s infinite alternate;
-
-}
-
-
-
-@keyframes glow{
-
-
-from{
-
-box-shadow:0 0 10px #38bdf8;
-
-}
-
-
-to{
-
-box-shadow:0 0 40px #a855f7;
-
-}
-
-
-}
-
-
-
-
-footer{
-
-
-padding:40px;
-
-text-align:center;
-
-background:#020617;
-
-border-top:1px solid #334155;
-
-color:#cbd5e1;
-
-
-}
-
-
-
-footer h2{
-
-color:#38bdf8;
-
-font-size:35px;
-
-}
-
-
-
-</style>
-
-
-
-
-
-
-
-<script>
-
-
-let quizScore=0;
-
-
-
-function checkAnswer(button,correct){
-
-
-if(button.disabled)
-return;
-
-
-
-if(correct){
-
-quizScore++;
-
-button.classList.add("correct");
-
-
-}
-
-else{
-
-button.classList.add("wrong");
-
-}
-
-
-
-button.disabled=true;
-
-
-
-document.getElementById("score").innerHTML=
-
-"Score: "
-+
-quizScore
-+
-" / 3";
-
-
-}
-
-
-
-
-
-function restartQuiz(){
-
-
-quizScore=0;
-
-
-document.getElementById("score").innerHTML=
-"Score: 0 / 3";
-
-
-
-let buttons=document.querySelectorAll(".option");
-
-
-buttons.forEach(btn=>{
-
-
-btn.disabled=false;
-
-btn.classList.remove("correct");
-
-btn.classList.remove("wrong");
-
-
-});
-
-
-}
-
-
-
-</script>
+        }
+    </script>
 
 </body>
+
 </html>
