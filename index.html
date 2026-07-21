@@ -1,0 +1,1786 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>
+Bayesian Theorem Interactive Learning
+</title>
+
+
+<style>
+
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Segoe UI",sans-serif;
+}
+
+
+html{
+scroll-behavior:smooth;
+}
+
+
+body{
+
+background:#020617;
+color:white;
+line-height:1.6;
+
+}
+
+
+
+/* NAVBAR */
+
+
+nav{
+
+position:fixed;
+top:0;
+width:100%;
+padding:20px 8%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:rgba(2,6,23,.8);
+backdrop-filter:blur(10px);
+z-index:1000;
+
+}
+
+
+.logo{
+
+font-size:24px;
+font-weight:bold;
+color:#38bdf8;
+
+}
+
+
+nav a{
+
+color:white;
+text-decoration:none;
+margin-left:25px;
+
+}
+
+
+nav a:hover{
+
+color:#38bdf8;
+
+}
+
+
+
+
+/* HERO */
+
+
+.hero{
+
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+overflow:hidden;
+position:relative;
+
+}
+
+
+.background{
+
+position:absolute;
+width:500px;
+height:500px;
+background:linear-gradient(
+45deg,
+#38bdf8,
+#a855f7
+);
+
+filter:blur(120px);
+animation:move 6s infinite alternate;
+
+}
+
+
+
+@keyframes move{
+
+from{
+transform:translate(-100px,-50px);
+}
+
+to{
+transform:translate(100px,50px);
+}
+
+}
+
+
+
+.hero-content{
+
+position:relative;
+z-index:2;
+
+}
+
+
+.hero h1{
+
+font-size:70px;
+
+background:linear-gradient(
+90deg,
+#38bdf8,
+#a855f7
+);
+
+-webkit-background-clip:text;
+color:transparent;
+
+}
+
+
+
+.hero p{
+
+font-size:24px;
+color:#cbd5e1;
+margin-top:20px;
+
+}
+
+
+
+.btn{
+
+margin-top:30px;
+padding:15px 35px;
+border-radius:30px;
+border:none;
+cursor:pointer;
+
+background:#38bdf8;
+font-size:18px;
+
+transition:.3s;
+
+}
+
+
+
+.btn:hover{
+
+transform:scale(1.1);
+background:#a855f7;
+color:white;
+
+}
+
+
+
+
+
+/* COMMON */
+
+
+section{
+
+padding:90px 10%;
+
+}
+
+
+.title{
+
+text-align:center;
+font-size:42px;
+margin-bottom:50px;
+
+}
+
+
+
+
+/* CARDS */
+
+
+.container{
+
+display:flex;
+gap:30px;
+flex-wrap:wrap;
+
+}
+
+
+.card{
+
+flex:1;
+
+background:#111827;
+padding:30px;
+
+border-radius:20px;
+
+box-shadow:
+0 10px 30px rgba(0,0,0,.4);
+
+transition:.3s;
+
+}
+
+
+.card:hover{
+
+transform:translateY(-10px);
+
+}
+
+
+
+.card h2{
+
+color:#38bdf8;
+margin-bottom:20px;
+
+}
+
+
+
+
+
+/* STORY */
+
+
+.emoji{
+
+font-size:100px;
+text-align:center;
+
+animation:bounce 2s infinite;
+
+}
+
+
+
+@keyframes bounce{
+
+50%{
+
+transform:translateY(-20px);
+
+}
+
+}
+
+
+
+
+.definition{
+
+background:#111827;
+padding:35px;
+border-left:6px solid #38bdf8;
+border-radius:15px;
+
+font-size:20px;
+
+}
+
+
+
+
+</style>
+
+
+</head>
+
+
+<body>
+
+
+
+<nav>
+
+
+<div class="logo">
+
+BayesLearn
+
+</div>
+
+
+<div>
+
+<a href="#story">
+Story
+</a>
+
+<a href="#concept">
+Concept
+</a>
+
+<a href="#calculator">
+Calculator
+</a>
+
+<a href="#quiz">
+Quiz
+</a>
+
+</div>
+
+
+</nav>
+
+
+
+
+
+<section class="hero">
+
+
+<div class="background"></div>
+
+
+<div class="hero-content">
+
+
+<h1>
+Bayesian Theorem
+</h1>
+
+
+<p>
+Learn probability through stories, simulations and AI examples
+</p>
+
+
+<button class="btn" onclick="startLearning()">
+
+Start Learning
+
+</button>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+<section id="story">
+
+
+<h1 class="title">
+The Detective Story 🕵️
+</h1>
+
+
+
+<div class="container">
+
+
+<div class="card emoji">
+
+🕵️
+
+</div>
+
+
+
+<div class="card">
+
+
+<h2>
+The Mystery Case
+</h2>
+
+
+<p>
+
+Detective Alex is investigating a crime.
+
+Initially, Alex has a small suspicion about a suspect.
+
+After collecting fingerprint evidence,
+Alex updates the probability of the suspect being guilty.
+
+</p>
+
+
+<br>
+
+
+<p>
+
+This process of updating beliefs using new evidence
+is the foundation of Bayesian reasoning.
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+<section id="concept">
+
+
+<h1 class="title">
+Understanding Bayes Theorem
+</h1>
+
+
+
+<div class="definition">
+
+
+Bayesian Theorem calculates the probability of an event
+based on previous knowledge and new evidence.
+
+
+<br><br>
+
+
+It answers:
+
+<b>
+"How should our belief change when new information arrives?"
+</b>
+
+
+</div>
+
+
+
+<div class="card" style="margin-top:30px;text-align:center;font-size:35px;color:#38bdf8;">
+
+
+P(A|B) =
+(P(B|A) × P(A)) / P(B)
+
+
+</div>
+
+
+</section>
+
+  <!-- ================= CALCULATOR ================= -->
+
+<section id="calculator">
+
+
+<h1 class="title">
+Interactive Bayes Calculator 🧮
+</h1>
+
+
+<div class="container">
+
+
+<div class="card">
+
+
+<h2>
+Enter Probability Values
+</h2>
+
+
+<label>
+Prior Probability P(A) (%)
+</label>
+
+<input id="pa" type="number" value="10">
+
+
+
+<label>
+Likelihood P(B|A) (%)
+</label>
+
+<input id="pba" type="number" value="80">
+
+
+
+<label>
+Evidence Probability P(B) (%)
+</label>
+
+<input id="pb" type="number" value="20">
+
+
+<button class="btn" onclick="calculate()">
+
+Calculate Probability
+
+</button>
+
+
+<h2 id="answer">
+
+Result: --
+
+</h2>
+
+
+</div>
+
+
+
+
+<div class="card">
+
+
+<h2>
+Formula Steps
+</h2>
+
+
+<p id="steps">
+
+Enter values and calculate.
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+<!-- ================= MEDICAL EXAMPLE ================= -->
+
+
+<section>
+
+
+<h1 class="title">
+
+Medical Diagnosis Example 🏥
+
+</h1>
+
+
+
+<div class="container">
+
+
+<div class="card">
+
+
+<h2>
+Problem
+</h2>
+
+
+<p>
+
+A disease affects only 1% of people.
+
+A medical test is 90% accurate.
+
+A person tests positive.
+
+What is the chance the person actually has the disease?
+
+</p>
+
+
+</div>
+
+
+
+<div class="card">
+
+
+<h2>
+Bayesian Thinking
+</h2>
+
+
+<p>
+
+Bayes theorem combines:
+
+<br><br>
+
+✔ Previous probability
+
+<br>
+
+✔ Test accuracy
+
+<br>
+
+✔ New evidence
+
+<br><br>
+
+to produce a better prediction.
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<!-- ================= GRAPH ================= -->
+
+
+<section>
+
+
+<h1 class="title">
+
+Probability Update Visualization 📊
+
+</h1>
+
+
+
+<div class="card">
+
+
+<h2>
+Before Evidence
+</h2>
+
+
+<div class="progress">
+
+<div id="beforeBar"></div>
+
+</div>
+
+
+<br>
+
+
+
+<h2>
+After Evidence
+</h2>
+
+
+<div class="progress">
+
+<div id="afterBar"></div>
+
+</div>
+
+
+
+<button class="btn" onclick="animateGraph()">
+
+Show Evidence Effect
+
+</button>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<style>
+
+
+
+input{
+
+display:block;
+
+width:100%;
+
+padding:15px;
+
+margin:15px 0;
+
+border-radius:10px;
+
+border:none;
+
+font-size:18px;
+
+}
+
+
+
+.progress{
+
+height:35px;
+
+background:#334155;
+
+border-radius:20px;
+
+overflow:hidden;
+
+margin:15px 0;
+
+}
+
+
+
+.progress div{
+
+height:100%;
+
+width:10%;
+
+background:linear-gradient(
+90deg,
+#38bdf8,
+#a855f7
+);
+
+transition:2s;
+
+}
+
+
+
+label{
+
+font-size:18px;
+
+color:#cbd5e1;
+
+}
+
+
+
+
+</style>
+
+
+
+
+
+
+<script>
+
+
+function calculate(){
+
+
+
+let A =
+Number(document.getElementById("pa").value)/100;
+
+
+let BA =
+Number(document.getElementById("pba").value)/100;
+
+
+let B =
+Number(document.getElementById("pb").value)/100;
+
+
+
+if(B===0){
+
+document.getElementById("answer").innerHTML=
+"Invalid Probability";
+
+return;
+
+}
+
+
+
+let result =
+((BA*A)/B)*100;
+
+
+
+document.getElementById("answer").innerHTML=
+
+"Updated Probability = "
++
+result.toFixed(2)
++
+"%";
+
+
+
+document.getElementById("steps").innerHTML=
+
+
+`
+Step 1:<br>
+P(A) = ${A*100}%
+
+
+<br><br>
+
+Step 2:<br>
+P(B|A) = ${BA*100}%
+
+
+<br><br>
+
+
+Step 3:<br>
+
+Bayes Formula Applied
+
+
+<br><br>
+
+
+Final Answer:
+
+<b>
+${result.toFixed(2)}%
+</b>
+
+`;
+
+
+
+document.getElementById("afterBar")
+.style.width=result+"%";
+
+
+
+}
+
+
+
+
+
+
+function animateGraph(){
+
+
+document.getElementById("beforeBar")
+.style.width="15%";
+
+
+document.getElementById("afterBar")
+.style.width="75%";
+
+
+}
+
+
+
+
+
+
+
+function startLearning(){
+
+document.getElementById("story")
+.scrollIntoView();
+
+}
+
+
+</script>
+<!-- ================= APPLICATIONS ================= -->
+
+
+<section>
+
+
+<h1 class="title">
+Bayesian Theorem in Real Life 🌍
+</h1>
+
+
+
+<div class="container">
+
+
+<div class="card">
+
+
+<h2>
+📧 Spam Detection
+</h2>
+
+
+<p>
+
+Email applications use Bayesian models to analyze:
+
+<br><br>
+
+• Words in emails
+
+<br>
+• Sender information
+
+<br>
+• Previous email patterns
+
+<br><br>
+
+The system predicts whether a message is spam
+or a genuine email.
+
+</p>
+
+
+</div>
+
+
+
+
+<div class="card">
+
+
+<h2>
+🤖 Artificial Intelligence
+</h2>
+
+
+<p>
+
+Machine learning systems use Bayesian methods
+to update predictions when new data arrives.
+
+<br><br>
+
+Examples:
+
+<br>
+
+• Recommendation systems
+
+<br>
+
+• AI assistants
+
+<br>
+
+• Prediction models
+
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="card">
+
+
+<h2>
+🔍 Search Engines
+</h2>
+
+
+<p>
+
+Search engines estimate the probability of
+the user's intention and improve search results
+using probabilistic models.
+
+</p>
+
+
+</div>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<!-- ================= ML CONNECTION ================= -->
+
+
+<section>
+
+
+<h1 class="title">
+
+Bayesian Learning in Machine Learning 🤖
+
+</h1>
+
+
+
+<div class="container">
+
+
+<div class="card">
+
+
+<h2>
+Traditional Learning
+</h2>
+
+
+<p>
+
+A model learns from existing data and creates
+a prediction.
+
+</p>
+
+
+<div class="emoji">
+
+📚
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="card">
+
+
+<h2>
+Bayesian Learning
+</h2>
+
+
+<p>
+
+A model starts with a belief and continuously
+updates it when new information is received.
+
+</p>
+
+
+<div class="emoji">
+
+🔄
+
+</div>
+
+
+</div>
+
+
+
+<div class="card">
+
+
+<h2>
+Result
+</h2>
+
+
+<p>
+
+Better decisions under uncertainty.
+
+Bayesian approaches are useful when data is limited
+or changing.
+
+</p>
+
+
+<div class="emoji">
+
+🎯
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+<!-- ================= PROCESS ANIMATION ================= -->
+
+
+<section>
+
+
+<h1 class="title">
+
+How Bayes Works ⚙️
+
+</h1>
+
+
+
+<div class="container">
+
+
+<div class="card process">
+
+
+<h2>
+1. Initial Belief
+</h2>
+
+<p>
+
+Start with previous knowledge.
+
+</p>
+
+
+</div>
+
+
+
+<div class="card process">
+
+
+<h2>
+2. New Evidence
+</h2>
+
+
+<p>
+
+Collect additional information.
+
+</p>
+
+
+</div>
+
+
+
+
+<div class="card process">
+
+
+<h2>
+3. Update Belief
+</h2>
+
+
+<p>
+
+Calculate new probability.
+
+</p>
+
+
+</div>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<style>
+
+
+.emoji{
+
+font-size:70px;
+
+text-align:center;
+
+animation:bounce 2s infinite;
+
+}
+
+
+
+.process{
+
+text-align:center;
+
+animation:floatCard 3s infinite alternate;
+
+}
+
+
+
+@keyframes floatCard{
+
+
+from{
+
+transform:translateY(0);
+
+}
+
+
+to{
+
+transform:translateY(-15px);
+
+}
+
+
+}
+
+
+
+</style>
+
+  <!-- ================= QUIZ SECTION ================= -->
+
+
+<section id="quiz">
+
+
+<h1 class="title">
+
+Test Your Knowledge 🧠
+
+</h1>
+
+
+
+<div class="card quiz-box">
+
+
+<h2>
+Question 1
+</h2>
+
+
+<p>
+What does Bayesian Theorem calculate?
+</p>
+
+
+<button class="option" onclick="checkAnswer(this,false)">
+Only average values
+</button>
+
+
+<button class="option" onclick="checkAnswer(this,true)">
+Probability after receiving new evidence
+</button>
+
+
+<button class="option" onclick="checkAnswer(this,false)">
+Only mathematical formulas
+</button>
+
+
+
+<hr>
+
+
+
+<h2>
+Question 2
+</h2>
+
+
+<p>
+Bayesian Learning is mainly used in:
+</p>
+
+
+
+<button class="option" onclick="checkAnswer(this,true)">
+Artificial Intelligence and Machine Learning
+</button>
+
+
+<button class="option" onclick="checkAnswer(this,false)">
+Computer hardware repair
+</button>
+
+
+<button class="option" onclick="checkAnswer(this,false)">
+Image editing only
+</button>
+
+
+
+
+<hr>
+
+
+
+<h2>
+Question 3
+</h2>
+
+
+<p>
+P(A|B) represents:
+</p>
+
+
+
+<button class="option" onclick="checkAnswer(this,true)">
+Probability of A after observing B
+</button>
+
+
+<button class="option" onclick="checkAnswer(this,false)">
+Probability of B without evidence
+</button>
+
+
+<button class="option" onclick="checkAnswer(this,false)">
+Total number of events
+</button>
+
+
+
+<h2 id="score">
+
+Score: 0 / 3
+
+</h2>
+
+
+
+<button class="btn" onclick="restartQuiz()">
+
+Restart Quiz
+
+</button>
+
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+<!-- ================= FINAL SECTION ================= -->
+
+
+<section>
+
+
+<div class="card final">
+
+
+<h1>
+🎓 Learning Completed
+</h1>
+
+
+
+<p>
+
+
+You explored Bayesian Theorem through:
+
+<br><br>
+
+✔ Story-based learning
+
+<br>
+
+✔ Interactive calculations
+
+<br>
+
+✔ Real-world applications
+
+<br>
+
+✔ Machine Learning concepts
+
+<br>
+
+✔ Knowledge testing
+
+
+<br><br>
+
+
+<b>
+
+"Bayesian reasoning helps machines and humans
+make better decisions under uncertainty."
+
+</b>
+
+
+</p>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+
+<h2>
+BayesLearn
+</h2>
+
+
+<p>
+
+Interactive Bayesian Theorem Learning Platform
+
+</p>
+
+
+<br>
+
+
+<p>
+
+Created by
+
+<b>
+Soorya S Rajesh
+</b>
+
+</p>
+
+
+<p>
+
+Computer Science Engineering Student
+
+</p>
+
+
+<br>
+
+
+<p>
+
+© 2026 All Rights Reserved
+
+</p>
+
+
+</footer>
+
+
+
+
+
+
+
+
+
+<style>
+
+
+.quiz-box{
+
+max-width:900px;
+
+margin:auto;
+
+}
+
+
+
+.option{
+
+
+width:100%;
+
+padding:15px;
+
+margin:10px 0;
+
+border:none;
+
+border-radius:15px;
+
+background:#1e293b;
+
+color:white;
+
+font-size:18px;
+
+cursor:pointer;
+
+transition:.3s;
+
+
+}
+
+
+
+.option:hover{
+
+background:#38bdf8;
+
+color:black;
+
+transform:translateX(10px);
+
+}
+
+
+
+
+.correct{
+
+background:#22c55e!important;
+
+}
+
+
+
+.wrong{
+
+background:#ef4444!important;
+
+}
+
+
+
+
+.final{
+
+text-align:center;
+
+font-size:22px;
+
+animation:glow 3s infinite alternate;
+
+}
+
+
+
+@keyframes glow{
+
+
+from{
+
+box-shadow:0 0 10px #38bdf8;
+
+}
+
+
+to{
+
+box-shadow:0 0 40px #a855f7;
+
+}
+
+
+}
+
+
+
+
+footer{
+
+
+padding:40px;
+
+text-align:center;
+
+background:#020617;
+
+border-top:1px solid #334155;
+
+color:#cbd5e1;
+
+
+}
+
+
+
+footer h2{
+
+color:#38bdf8;
+
+font-size:35px;
+
+}
+
+
+
+</style>
+
+
+
+
+
+
+
+<script>
+
+
+let quizScore=0;
+
+
+
+function checkAnswer(button,correct){
+
+
+if(button.disabled)
+return;
+
+
+
+if(correct){
+
+quizScore++;
+
+button.classList.add("correct");
+
+
+}
+
+else{
+
+button.classList.add("wrong");
+
+}
+
+
+
+button.disabled=true;
+
+
+
+document.getElementById("score").innerHTML=
+
+"Score: "
++
+quizScore
++
+" / 3";
+
+
+}
+
+
+
+
+
+function restartQuiz(){
+
+
+quizScore=0;
+
+
+document.getElementById("score").innerHTML=
+"Score: 0 / 3";
+
+
+
+let buttons=document.querySelectorAll(".option");
+
+
+buttons.forEach(btn=>{
+
+
+btn.disabled=false;
+
+btn.classList.remove("correct");
+
+btn.classList.remove("wrong");
+
+
+});
+
+
+}
+
+
+
+</script>
+
+</body>
+</html>
