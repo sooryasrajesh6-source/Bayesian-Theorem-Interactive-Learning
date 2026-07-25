@@ -78,13 +78,14 @@
 
     .slide-indicators {
       display: flex;
-      gap: 10px;
+      gap: 8px;
       align-items: center;
+      flex-wrap: wrap;
     }
 
     .dot {
-      width: 12px;
-      height: 12px;
+      width: 10px;
+      height: 10px;
       border-radius: 20px;
       background: rgba(255, 255, 255, 0.2);
       transition: all 0.3s ease;
@@ -95,7 +96,7 @@
 
     .dot.active {
       background: #38bdf8;
-      width: 32px;
+      width: 28px;
       box-shadow: 0 0 16px rgba(56, 189, 248, 0.5);
     }
 
@@ -218,61 +219,129 @@
       padding: 18px;
     }
 
-    .story-text {
-      background: rgba(56, 189, 248, 0.05);
-      border-left: 3px solid #38bdf8;
-      padding: 12px 16px;
-      border-radius: 10px;
-      font-size: 0.9rem;
-      line-height: 1.6;
-      color: #cbd5e1;
-      margin-bottom: 8px;
-      max-height: 140px;
-      overflow-y: auto;
+    /* Definition Slide Styles */
+    .definition-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
     }
 
-    .story-text strong {
+    .def-card {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 16px;
+      padding: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    .def-card:hover {
+      background: rgba(56, 189, 248, 0.05);
+      transform: translateY(-2px);
+    }
+
+    .def-card.flipped {
+      background: rgba(56, 189, 248, 0.1);
+      border-color: #38bdf8;
+    }
+
+    .def-card .term {
+      font-size: 1.1rem;
+      font-weight: 600;
       color: #7dd3fc;
     }
 
-    .clue-box {
-      background: rgba(56, 189, 248, 0.08);
-      border-left: 4px solid #38bdf8;
-      padding: 10px 14px;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: 0.2s;
+    .def-card .definition {
       font-size: 0.9rem;
-    }
-    .clue-box:hover {
-      background: rgba(56, 189, 248, 0.18);
-      transform: translateX(4px);
-    }
-    .clue-box.applied {
-      border-left-color: #4ade80;
-      background: rgba(74, 222, 128, 0.1);
-    }
-    .clue-box .hidden-clue {
+      color: #94a3b8;
+      margin-top: 6px;
       display: none;
-      margin-top: 4px;
-      font-size: 0.85rem;
-      color: #e2e8f0;
-      background: rgba(0, 0, 0, 0.3);
-      padding: 6px 10px;
-      border-radius: 8px;
     }
-    .clue-box.revealed .hidden-clue {
+
+    .def-card.flipped .definition {
       display: block;
     }
 
-    .clue-box .clue-icon {
-      margin-right: 8px;
+    .def-card .icon {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
     }
-    .clue-box .clue-label {
-      color: #94a3b8;
-      font-size: 0.75rem;
+
+    .def-card .flip-hint {
+      font-size: 0.7rem;
+      color: #4a5568;
+      margin-top: 8px;
+    }
+
+    /* Visual Aid */
+    .bayes-visual {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 12px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 16px;
+    }
+
+    .bayes-flow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .flow-box {
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      border-radius: 12px;
+      padding: 8px 16px;
+      text-align: center;
+      font-size: 0.8rem;
+      min-width: 80px;
+    }
+
+    .flow-box.prior { border-color: #38bdf8; }
+    .flow-box.likelihood { border-color: #a855f7; }
+    .flow-box.posterior { border-color: #4ade80; }
+
+    .flow-arrow {
+      color: #4a5568;
+      font-size: 1.2rem;
+    }
+
+    /* Problem Slide */
+    .problem-box {
+      background: rgba(244, 63, 94, 0.05);
+      border-left: 4px solid #f43f5e;
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 8px;
+    }
+
+    .solution-box {
+      background: rgba(74, 222, 128, 0.05);
+      border-left: 4px solid #4ade80;
+      padding: 16px;
+      border-radius: 12px;
+      display: none;
+      margin-top: 8px;
+    }
+
+    .solution-box.visible {
       display: block;
-      margin-top: 2px;
+    }
+
+    .step-by-step {
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: #cbd5e1;
+    }
+
+    .step-by-step .highlight {
+      color: #38bdf8;
+      font-weight: 500;
     }
 
     .meter {
@@ -355,7 +424,7 @@
       font-size: 1.5rem;
     }
 
-    /* Slide 2: Evidence Timeline */
+    /* Timeline */
     .timeline {
       position: relative;
       padding-left: 30px;
@@ -419,119 +488,18 @@
       margin-top: 4px;
     }
 
-    /* Slide 3: Bayesian Roulette */
-    .roulette-wheel {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 20px;
-      flex-wrap: wrap;
+    .timeline-item .timeline-detail {
+      display: none;
+      margin-top: 8px;
+      padding: 8px 12px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+      font-size: 0.85rem;
+      color: #cbd5e1;
     }
 
-    .wheel-container {
-      position: relative;
-      width: 180px;
-      height: 180px;
-    }
-
-    .wheel {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      border: 3px solid rgba(56, 189, 248, 0.3);
-      position: relative;
-      overflow: hidden;
-      transition: transform 1s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    .wheel-segment {
-      position: absolute;
-      width: 50%;
-      height: 50%;
-      transform-origin: 100% 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.6rem;
-      font-weight: 600;
-      color: #0f172a;
-    }
-
-    .wheel-center {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: #1e293b;
-      border: 2px solid #38bdf8;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.7rem;
-      color: #7dd3fc;
-      z-index: 2;
-    }
-
-    .roulette-result {
-      text-align: center;
-    }
-
-    .roulette-result .value {
-      font-size: 3rem;
-      font-weight: 300;
-      color: #4ade80;
-    }
-
-    /* Slide 3: Hypothesis Testing Game */
-    .hypothesis-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .hypothesis-card {
-      background: rgba(255, 255, 255, 0.03);
-      border-radius: 12px;
-      padding: 14px;
-      text-align: center;
-      border: 2px solid rgba(255, 255, 255, 0.05);
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .hypothesis-card:hover {
-      background: rgba(56, 189, 248, 0.05);
-    }
-
-    .hypothesis-card.selected {
-      border-color: #38bdf8;
-      background: rgba(56, 189, 248, 0.1);
-    }
-
-    .hypothesis-card.correct {
-      border-color: #4ade80;
-      background: rgba(74, 222, 128, 0.1);
-    }
-
-    .hypothesis-card.incorrect {
-      border-color: #f43f5e;
-      background: rgba(244, 63, 94, 0.1);
-    }
-
-    .hypothesis-card .hypo-label {
-      font-size: 0.7rem;
-      color: #94a3b8;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .hypothesis-card .hypo-value {
-      font-size: 1.8rem;
-      font-weight: 300;
-      color: #7dd3fc;
+    .timeline-item.discovered .timeline-detail {
+      display: block;
     }
 
     #confetti-canvas {
@@ -558,14 +526,25 @@
       text-align: center;
     }
 
+    .formula-box {
+      font-size: 1.3rem;
+      text-align: center;
+      padding: 16px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      margin: 8px 0;
+      font-family: 'Courier New', monospace;
+      color: #7dd3fc;
+    }
+
     @media (max-width: 850px) {
       .row { flex-direction: column; }
       .slide-deck { height: 95vh; padding: 12px; }
       .slide { padding: 12px; }
-      .story-text { max-height: 100px; }
+      .definition-grid { grid-template-columns: 1fr; }
+      .bayes-flow { flex-direction: column; }
       .suspect-grid { grid-template-columns: 1fr; }
-      .hypothesis-grid { grid-template-columns: 1fr; }
-      .wheel-container { width: 140px; height: 140px; }
     }
   </style>
 </head>
@@ -581,7 +560,9 @@
         <button class="dot" data-index="1"></button>
         <button class="dot" data-index="2"></button>
         <button class="dot" data-index="3"></button>
-        <span style="color:#94a3b8; font-size:0.85rem; margin-left:8px;">Slide <span id="currentSlideIdx">1</span>/4</span>
+        <button class="dot" data-index="4"></button>
+        <button class="dot" data-index="5"></button>
+        <span style="color:#94a3b8; font-size:0.85rem; margin-left:8px;">Slide <span id="currentSlideIdx">1</span>/6</span>
       </div>
       <div style="display:flex; gap:10px;">
         <button class="action-btn" id="fullscreenBtn"><i class="fas fa-expand"></i> Fullscreen</button>
@@ -593,39 +574,39 @@
     </div>
 
     <div class="slides-wrapper">
-      <!-- SLIDE 0: Detective Story with Clues -->
+      <!-- SLIDE 0: Detective Story -->
       <div class="slide active" data-index="0">
         <h2><i class="fas fa-search"></i> The Case of the Missing Diamond</h2>
         <div class="sub">Detective Sterling uses Bayes to solve a high-profile heist</div>
         <div class="row">
           <div class="col" style="flex: 1.4;">
-            <div class="story-text">
+            <div class="story-text" style="background:rgba(56,189,248,0.05);border-left:3px solid #38bdf8;padding:12px 16px;border-radius:10px;font-size:0.9rem;line-height:1.6;color:#cbd5e1;margin-bottom:8px;max-height:140px;overflow-y:auto;">
               <p>🕵️ <strong>Detective Sterling</strong> has been called to investigate the theft of the <strong>Star of Arcadia</strong>, a 100-carat diamond worth $50 million. Three suspects have been identified: <strong>Mr. Black</strong>, a known jewel thief; <strong>Ms. White</strong>, a former museum curator; and <strong>Mr. Grey</strong>, a billionaire with a gambling problem.</p>
-              <p style="margin-top: 4px;">Sterling starts with a <strong>20% prior suspicion</strong> for each suspect. As evidence arrives, she updates her beliefs using Bayesian reasoning. <em>Click each clue to see how it shifts the probability!</em></p>
+              <p style="margin-top:4px;">Sterling starts with a <strong>20% prior suspicion</strong> for each suspect. As evidence arrives, she updates her beliefs using Bayesian reasoning. <em>Click each clue to see how it shifts the probability!</em></p>
             </div>
 
-            <div class="clue-box" data-lr="3.2" onclick="applyClue(this)">
+            <div class="clue-box" style="background:rgba(56,189,248,0.08);border-left:4px solid #38bdf8;padding:10px 14px;border-radius:12px;cursor:pointer;transition:0.2s;font-size:0.9rem;" data-lr="3.2" onclick="applyClue(this)">
               <span class="clue-icon">🔍</span> <strong>Fingerprint on the display case</strong>
-              <span class="clue-label">Matches Mr. Black's fingerprints</span>
-              <div class="hidden-clue">👣 95% match to Mr. Black. <strong>Likelihood Ratio = 3.2x</strong></div>
+              <span class="clue-label" style="color:#94a3b8;font-size:0.75rem;display:block;margin-top:2px;">Matches Mr. Black's fingerprints</span>
+              <div class="hidden-clue" style="display:none;margin-top:4px;font-size:0.85rem;color:#e2e8f0;background:rgba(0,0,0,0.3);padding:6px 10px;border-radius:8px;">👣 95% match to Mr. Black. <strong>Likelihood Ratio = 3.2x</strong></div>
             </div>
 
-            <div class="clue-box" data-lr="5.5" onclick="applyClue(this)">
+            <div class="clue-box" style="background:rgba(56,189,248,0.08);border-left:4px solid #38bdf8;padding:10px 14px;border-radius:12px;cursor:pointer;transition:0.2s;font-size:0.9rem;" data-lr="5.5" onclick="applyClue(this)">
               <span class="clue-icon">🧬</span> <strong>Rare fabric fiber on the vault</strong>
-              <span class="clue-label">Fiber matches Ms. White's jacket</span>
-              <div class="hidden-clue">🧵 Exclusive Italian fabric. <strong>Likelihood Ratio = 5.5x</strong></div>
+              <span class="clue-label" style="color:#94a3b8;font-size:0.75rem;display:block;margin-top:2px;">Fiber matches Ms. White's jacket</span>
+              <div class="hidden-clue" style="display:none;margin-top:4px;font-size:0.85rem;color:#e2e8f0;background:rgba(0,0,0,0.3);padding:6px 10px;border-radius:8px;">🧵 Exclusive Italian fabric. <strong>Likelihood Ratio = 5.5x</strong></div>
             </div>
 
-            <div class="clue-box" data-lr="0.3" onclick="applyClue(this)">
+            <div class="clue-box" style="background:rgba(56,189,248,0.08);border-left:4px solid #38bdf8;padding:10px 14px;border-radius:12px;cursor:pointer;transition:0.2s;font-size:0.9rem;" data-lr="0.3" onclick="applyClue(this)">
               <span class="clue-icon">📱</span> <strong>Alibi witness testimony</strong>
-              <span class="clue-label">Witnesses place Mr. Grey at a casino</span>
-              <div class="hidden-clue">🎰 Multiple witnesses confirm. <strong>Likelihood Ratio = 0.3x</strong></div>
+              <span class="clue-label" style="color:#94a3b8;font-size:0.75rem;display:block;margin-top:2px;">Witnesses place Mr. Grey at a casino</span>
+              <div class="hidden-clue" style="display:none;margin-top:4px;font-size:0.85rem;color:#e2e8f0;background:rgba(0,0,0,0.3);padding:6px 10px;border-radius:8px;">🎰 Multiple witnesses confirm. <strong>Likelihood Ratio = 0.3x</strong></div>
             </div>
 
-            <div class="clue-box" data-lr="8.0" onclick="applyClue(this)">
+            <div class="clue-box" style="background:rgba(56,189,248,0.08);border-left:4px solid #38bdf8;padding:10px 14px;border-radius:12px;cursor:pointer;transition:0.2s;font-size:0.9rem;" data-lr="8.0" onclick="applyClue(this)">
               <span class="clue-icon">📹</span> <strong>CCTV footage</strong>
-              <span class="clue-label">Blurry figure matching Mr. Black's build</span>
-              <div class="hidden-clue">🎥 Height and build match. <strong>Likelihood Ratio = 8.0x</strong></div>
+              <span class="clue-label" style="color:#94a3b8;font-size:0.75rem;display:block;margin-top:2px;">Blurry figure matching Mr. Black's build</span>
+              <div class="hidden-clue" style="display:none;margin-top:4px;font-size:0.85rem;color:#e2e8f0;background:rgba(0,0,0,0.3);padding:6px 10px;border-radius:8px;">🎥 Height and build match. <strong>Likelihood Ratio = 8.0x</strong></div>
             </div>
 
             <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:auto;">
@@ -680,25 +661,25 @@
                 <div class="time">⏰ Day 1 · 10:00 AM</div>
                 <div class="title">🔍 Fingerprint Discovery</div>
                 <div class="desc">Partial fingerprint found on the display case glass.</div>
-                <div style="display:none;" class="timeline-detail">→ Matched Mr. Black. LR: 3.2x — increased suspicion from 20% to 44%</div>
+                <div class="timeline-detail">→ Matched Mr. Black. LR: 3.2x — increased suspicion from 20% to 44%</div>
               </div>
               <div class="timeline-item" data-evidence="1" onclick="revealTimelineItem(this)">
                 <div class="time">⏰ Day 2 · 2:30 PM</div>
                 <div class="title">🧬 Fiber Analysis</div>
                 <div class="desc">Rare fabric fiber recovered from the vault door.</div>
-                <div style="display:none;" class="timeline-detail">→ Traced to Ms. White's jacket. LR: 5.5x — Ms. White becomes the primary suspect</div>
+                <div class="timeline-detail">→ Traced to Ms. White's jacket. LR: 5.5x — Ms. White becomes the primary suspect</div>
               </div>
               <div class="timeline-item" data-evidence="2" onclick="revealTimelineItem(this)">
                 <div class="time">⏰ Day 3 · 9:15 AM</div>
                 <div class="title">📱 Alibi Verification</div>
                 <div class="desc">Witness statements place Mr. Grey at a casino.</div>
-                <div style="display:none;" class="timeline-detail">→ Confirmed alibi. LR: 0.3x — Mr. Grey's probability drops significantly</div>
+                <div class="timeline-detail">→ Confirmed alibi. LR: 0.3x — Mr. Grey's probability drops significantly</div>
               </div>
               <div class="timeline-item" data-evidence="3" onclick="revealTimelineItem(this)">
                 <div class="time">⏰ Day 4 · 11:00 AM</div>
                 <div class="title">📹 CCTV Breakthrough</div>
                 <div class="desc">Enhanced footage shows suspect entering the vault.</div>
-                <div style="display:none;" class="timeline-detail">→ Figure matches Mr. Black's build. LR: 8.0x — This is the strongest evidence yet!</div>
+                <div class="timeline-detail">→ Figure matches Mr. Black's build. LR: 8.0x — This is the strongest evidence yet!</div>
               </div>
             </div>
           </div>
@@ -719,22 +700,141 @@
         </div>
       </div>
 
-      <!-- SLIDE 2: Bayesian Roulette -->
+      <!-- SLIDE 2: Definition & Flip Cards -->
       <div class="slide" data-index="2">
+        <h2><i class="fas fa-graduation-cap"></i> Understanding Bayes' Theorem</h2>
+        <div class="sub">Click each card to flip and reveal the definition</div>
+        <div class="row">
+          <div class="col" style="flex: 1.2;">
+            <div class="definition-grid">
+              <div class="def-card" onclick="flipDefCard(this)">
+                <div class="icon">📊</div>
+                <div class="term">Prior Probability P(A)</div>
+                <div class="definition">The initial probability of an event before any new evidence is considered. It represents your existing belief based on previous knowledge or data.</div>
+                <div class="flip-hint">🔄 Click to flip</div>
+              </div>
+              <div class="def-card" onclick="flipDefCard(this)">
+                <div class="icon">🎯</div>
+                <div class="term">Likelihood P(B|A)</div>
+                <div class="definition">The probability of observing the evidence (B) given that the hypothesis (A) is true. It measures how well the evidence supports the hypothesis.</div>
+                <div class="flip-hint">🔄 Click to flip</div>
+              </div>
+              <div class="def-card" onclick="flipDefCard(this)">
+                <div class="icon">🔄</div>
+                <div class="term">Posterior Probability P(A|B)</div>
+                <div class="definition">The updated probability of the hypothesis after taking into account the new evidence. This is the result of applying Bayes' Theorem.</div>
+                <div class="flip-hint">🔄 Click to flip</div>
+              </div>
+              <div class="def-card" onclick="flipDefCard(this)">
+                <div class="icon">📐</div>
+                <div class="term">Bayes' Theorem</div>
+                <div class="definition">P(A|B) = [P(B|A) × P(A)] / P(B). It describes how to update probabilities based on new evidence.</div>
+                <div class="flip-hint">🔄 Click to flip</div>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="glass-card">
+              <h3 style="font-size:1rem; color:#7dd3fc;"><i class="fas fa-sitemap"></i> Bayes Flow Visualization</h3>
+              <div class="bayes-visual">
+                <div class="bayes-flow">
+                  <div class="flow-box prior">Prior<br>P(A)</div>
+                  <span class="flow-arrow">×</span>
+                  <div class="flow-box likelihood">Likelihood<br>P(B|A)</div>
+                  <span class="flow-arrow">÷</span>
+                  <div class="flow-box posterior">Posterior<br>P(A|B)</div>
+                </div>
+                <div style="font-size:0.75rem; color:#94a3b8; text-align:center;">
+                  Evidence P(B) = P(B|A)·P(A) + P(B|¬A)·P(¬A)
+                </div>
+                <div class="formula-box" style="font-size:1rem; padding:10px;">
+                  P(A|B) = [P(B|A) · P(A)] / [P(B|A)·P(A) + P(B|¬A)·P(¬A)]
+                </div>
+                <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; font-size:0.75rem; color:#94a3b8;">
+                  <span style="display:flex; align-items:center; gap:4px;"><span style="display:inline-block; width:12px; height:12px; background:#38bdf8; border-radius:4px;"></span> Prior</span>
+                  <span style="display:flex; align-items:center; gap:4px;"><span style="display:inline-block; width:12px; height:12px; background:#a855f7; border-radius:4px;"></span> Likelihood</span>
+                  <span style="display:flex; align-items:center; gap:4px;"><span style="display:inline-block; width:12px; height:12px; background:#4ade80; border-radius:4px;"></span> Posterior</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 3: Practice Problem -->
+      <div class="slide" data-index="3">
+        <h2><i class="fas fa-pencil-alt"></i> Practice Problem</h2>
+        <div class="sub">Test your understanding with a real-world Bayes problem</div>
+        <div class="row">
+          <div class="col" style="flex: 1.3;">
+            <div class="problem-box">
+              <h3 style="color:#f43f5e; font-size:1rem;"><i class="fas fa-exclamation-triangle"></i> Medical Diagnosis Problem</h3>
+              <p style="margin: 8px 0; font-size:0.95rem; line-height:1.6;">
+                A rare disease affects <strong>1 in 1,000 people</strong> (0.1% prevalence). A diagnostic test has:
+              </p>
+              <ul style="list-style:none; font-size:0.9rem; line-height:1.8;">
+                <li>• Sensitivity (True Positive Rate): <strong class="highlight" style="color:#38bdf8;">95%</strong></li>
+                <li>• Specificity (True Negative Rate): <strong class="highlight" style="color:#38bdf8;">99%</strong></li>
+              </ul>
+              <p style="margin: 8px 0; font-size:0.95rem;">
+                <strong>Question:</strong> If a person tests <em>positive</em>, what is the probability they actually have the disease?
+              </p>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <button class="action-btn" onclick="showSolution()"><i class="fas fa-lightbulb"></i> Show Solution</button>
+              <button class="action-btn" onclick="resetProblem()"><i class="fas fa-undo"></i> Reset</button>
+            </div>
+          </div>
+          <div class="col">
+            <div class="glass-card" style="flex:1;">
+              <h3 style="font-size:1rem; color:#7dd3fc;"><i class="fas fa-check-circle"></i> Solution</h3>
+              <div id="solutionBox" class="solution-box">
+                <div class="step-by-step">
+                  <p><strong>Step 1:</strong> Define variables</p>
+                  <p>P(Disease) = 0.001 &nbsp;|&nbsp; P(¬Disease) = 0.999</p>
+                  <p>P(Positive | Disease) = 0.95 &nbsp;|&nbsp; P(Positive | ¬Disease) = 0.01</p>
+                  <br>
+                  <p><strong>Step 2:</strong> Apply Bayes' Theorem</p>
+                  <div class="formula-box" style="font-size:0.9rem; padding:10px; margin:4px 0;">
+                    P(Disease | Positive) = [0.95 × 0.001] / [0.95 × 0.001 + 0.01 × 0.999]
+                  </div>
+                  <p><strong>Step 3:</strong> Calculate</p>
+                  <p>Numerator = 0.00095</p>
+                  <p>Denominator = 0.00095 + 0.00999 = 0.01094</p>
+                  <br>
+                  <p><strong style="color:#4ade80;">Final Answer:</strong> 0.00095 / 0.01094 = <strong style="color:#4ade80; font-size:1.2rem;">8.7%</strong></p>
+                  <p style="margin-top:8px; color:#94a3b8; font-size:0.85rem;">💡 Even with a 95% sensitive test, the positive predictive value is only 8.7% for a rare disease!</p>
+                </div>
+              </div>
+              <div id="problemStatus" style="text-align:center; color:#94a3b8; font-size:0.9rem; margin-top:8px;">
+                Click "Show Solution" to see the step-by-step breakdown.
+              </div>
+              <div style="margin-top:auto; padding-top:12px; border-top:1px solid rgba(255,255,255,0.05);">
+                <div style="display:flex; justify-content:space-between; font-size:0.8rem;">
+                  <span>🎯 Key Insight: <span style="color:#eab308;">Always consider the base rate!</span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 4: Bayesian Roulette -->
+      <div class="slide" data-index="4">
         <h2><i class="fas fa-circle-notch"></i> Bayesian Roulette</h2>
         <div class="sub">Spin the wheel to generate random evidence and watch probabilities update</div>
         <div class="row">
           <div class="col" style="align-items:center; justify-content:center;">
-            <div class="roulette-wheel">
-              <div class="wheel-container">
-                <div class="wheel" id="rouletteWheel">
+            <div class="roulette-wheel" style="display:flex;justify-content:center;align-items:center;gap:20px;flex-wrap:wrap;">
+              <div class="wheel-container" style="position:relative;width:180px;height:180px;">
+                <div class="wheel" id="rouletteWheel" style="width:100%;height:100%;border-radius:50%;border:3px solid rgba(56,189,248,0.3);position:relative;overflow:hidden;transition:transform 1s cubic-bezier(0.34,1.56,0.64,1);">
                   <!-- Segments generated by JS -->
                 </div>
-                <div class="wheel-center">🎯</div>
+                <div class="wheel-center" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;border-radius:50%;background:#1e293b;border:2px solid #38bdf8;display:flex;align-items:center;justify-content:center;font-size:0.7rem;color:#7dd3fc;z-index:2;">🎯</div>
               </div>
-              <div class="roulette-result">
+              <div class="roulette-result" style="text-align:center;">
                 <div style="font-size:0.8rem; color:#94a3b8;">Current Evidence</div>
-                <div class="value" id="rouletteEvidence">—</div>
+                <div class="value" id="rouletteEvidence" style="font-size:2.5rem;font-weight:300;color:#4ade80;">—</div>
                 <div style="font-size:0.7rem; color:#94a3b8;" id="rouletteLR">LR: —</div>
                 <button class="action-btn" style="margin-top:12px;" onclick="spinRoulette()"><i class="fas fa-sync-alt"></i> Spin!</button>
               </div>
@@ -768,8 +868,8 @@
         </div>
       </div>
 
-      <!-- SLIDE 3: Hypothesis Testing Game -->
-      <div class="slide" data-index="3">
+      <!-- SLIDE 5: Hypothesis Testing Game -->
+      <div class="slide" data-index="5">
         <h2><i class="fas fa-brain"></i> Hypothesis Testing Challenge</h2>
         <div class="sub">Select the correct Bayesian interpretation for each scenario</div>
         <div class="row">
@@ -778,7 +878,7 @@
               <div class="glass-card" style="flex:1;">
                 <h3 style="font-size:1rem; color:#7dd3fc;" id="questionText">Question 1 of 5</h3>
                 <p style="margin:12px 0; font-size:0.95rem; line-height:1.6;" id="questionDesc">Loading...</p>
-                <div class="hypothesis-grid" id="hypothesisGrid">
+                <div class="hypothesis-grid" id="hypothesisGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
                   <!-- Generated by JS -->
                 </div>
                 <div id="questionFeedback" style="margin-top:12px; text-align:center; font-size:0.9rem; min-height:30px;"></div>
@@ -792,7 +892,7 @@
                 <div style="font-size:3rem; font-weight:300; color:#4ade80;" id="quizScoreDisplay">0</div>
                 <div style="font-size:0.8rem; color:#94a3b8;">/ <span id="quizTotal">5</span> correct</div>
               </div>
-              <div class="score-progress"><div class="score-fill" id="quizProgressFill" style="width:0%;"></div></div>
+              <div class="score-progress" style="background:rgba(0,0,0,0.3);border-radius:40px;height:10px;width:100%;overflow:hidden;"><div class="score-fill" id="quizProgressFill" style="width:0%;background:linear-gradient(90deg,#38bdf8,#a855f7);height:100%;transition:width 0.4s ease;"></div></div>
               <div style="margin-top:12px; display:flex; gap:8px; justify-content:center;">
                 <button class="action-btn" onclick="resetQuizGame()"><i class="fas fa-undo"></i> Reset</button>
                 <button class="action-btn" onclick="nextQuestion()"><i class="fas fa-forward"></i> Next</button>
@@ -873,7 +973,6 @@
         document.getElementById('detectivePosterior').textContent = Math.round(topProb * 100) + '%';
         document.getElementById('detectiveMeter').style.width = Math.round(topProb * 100) + '%';
 
-        // Highlight active suspect
         ['cardBlack', 'cardWhite', 'cardGrey'].forEach(id => document.getElementById(id).classList.remove('active'));
         if (topSuspect === 'Mr. Black') document.getElementById('cardBlack').classList.add('active');
         else if (topSuspect === 'Ms. White') document.getElementById('cardWhite').classList.add('active');
@@ -948,8 +1047,6 @@
         if (timelineRevealed.has(idx)) return;
         timelineRevealed.add(idx);
         el.classList.add('discovered');
-        const detail = el.querySelector('.timeline-detail');
-        if (detail) detail.style.display = 'block';
         document.getElementById('timelineCount').textContent = timelineRevealed.size;
 
         const feedback = document.getElementById('timelineFeedback');
@@ -973,14 +1070,33 @@
         timelineRevealed.clear();
         document.querySelectorAll('.timeline-item').forEach(el => {
           el.classList.remove('discovered');
-          const detail = el.querySelector('.timeline-detail');
-          if (detail) detail.style.display = 'none';
         });
         document.getElementById('timelineCount').textContent = '0';
         document.getElementById('timelineFeedback').innerHTML = 'Click an evidence item to see how it impacted the case...';
       };
 
-      // ============ SLIDE 2: BAYESIAN ROULETTE ============
+      // ============ SLIDE 2: DEFINITION FLIP CARDS ============
+      window.flipDefCard = function(el) {
+        el.classList.toggle('flipped');
+        if (el.classList.contains('flipped')) {
+          fireConfetti(3);
+        }
+      };
+
+      // ============ SLIDE 3: PRACTICE PROBLEM ============
+      window.showSolution = function() {
+        const solutionBox = document.getElementById('solutionBox');
+        solutionBox.classList.add('visible');
+        document.getElementById('problemStatus').innerHTML = '✅ Solution revealed! Study the step-by-step breakdown above.';
+        fireConfetti(8);
+      };
+
+      window.resetProblem = function() {
+        document.getElementById('solutionBox').classList.remove('visible');
+        document.getElementById('problemStatus').innerHTML = 'Click "Show Solution" to see the step-by-step breakdown.';
+      };
+
+      // ============ SLIDE 4: BAYESIAN ROULETTE ============
       const rouletteEvidence = [
         { label: '🔍 Fingerprint', lr: 3.2, target: 'black' },
         { label: '🧬 Fiber', lr: 5.5, target: 'white' },
@@ -1002,9 +1118,10 @@
         segments.forEach((seg, i) => {
           const angle = (360 / total) * i;
           const color = seg.color;
-          html += `<div class="wheel-segment" style="background:${color}; transform: rotate(${angle}deg) skewY(-${90 - 360/total}deg);">${seg.label.split(' ')[0]}</div>`;
+          html += `<div class="wheel-segment" style="position:absolute;width:50%;height:50%;transform-origin:100% 100%;background:${color};transform:rotate(${angle}deg) skewY(-${90 - 360/total}deg);display:flex;align-items:center;justify-content:center;font-size:0.6rem;font-weight:600;color:#0f172a;">${seg.label.split(' ')[0]}</div>`;
         });
         wheel.innerHTML = html;
+        wheel.dataset.rotation = 0;
       }
       initRouletteWheel();
 
@@ -1022,7 +1139,6 @@
         document.getElementById('rouletteEvidence').textContent = evidence.label;
         document.getElementById('rouletteLR').textContent = `LR: ${evidence.lr}x`;
 
-        // Apply evidence
         if (evidence.target === 'black') {
           rouletteProbs.black *= evidence.lr;
           rouletteProbs.white *= 0.95;
@@ -1054,7 +1170,7 @@
         fireConfetti(4);
       };
 
-      // ============ SLIDE 3: HYPOTHESIS TESTING GAME ============
+      // ============ SLIDE 5: HYPOTHESIS TESTING GAME ============
       const questions = [
         {
           question: 'A doctor tests a patient for a rare disease. The test is positive. Which statement best describes the posterior probability?',
@@ -1130,7 +1246,8 @@
         q.options.forEach((opt, idx) => {
           const card = document.createElement('div');
           card.className = 'hypothesis-card';
-          card.innerHTML = `<div class="hypo-label">Option ${String.fromCharCode(65 + idx)}</div><div class="hypo-value" style="font-size:1rem;">${opt}</div>`;
+          card.style.cssText = 'background:rgba(255,255,255,0.03);border-radius:12px;padding:14px;text-align:center;border:2px solid rgba(255,255,255,0.05);cursor:pointer;transition:0.3s;';
+          card.innerHTML = `<div class="hypo-label" style="font-size:0.7rem;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;">Option ${String.fromCharCode(65 + idx)}</div><div class="hypo-value" style="font-size:1rem;font-weight:300;color:#7dd3fc;margin-top:4px;">${opt}</div>`;
           card.dataset.idx = idx;
           card.onclick = () => selectHypothesis(card, idx);
           grid.appendChild(card);
@@ -1149,8 +1266,13 @@
 
         document.querySelectorAll('.hypothesis-card').forEach(c => {
           c.style.cursor = 'default';
-          if (parseInt(c.dataset.idx) === q.correct) c.classList.add('correct');
-          else if (parseInt(c.dataset.idx) === idx && !isCorrect) c.classList.add('incorrect');
+          if (parseInt(c.dataset.idx) === q.correct) {
+            c.style.borderColor = '#4ade80';
+            c.style.background = 'rgba(74,222,128,0.1)';
+          } else if (parseInt(c.dataset.idx) === idx && !isCorrect) {
+            c.style.borderColor = '#f43f5e';
+            c.style.background = 'rgba(244,63,94,0.1)';
+          }
         });
 
         if (isCorrect) {
@@ -1237,8 +1359,7 @@
       normalizeProbs();
       loadQuestion();
 
-      // Auto-fire initial confetti
-      setTimeout(() => fireConfetti(8), 600);
+      setTimeout(() => fireConfetti(6), 600);
     })();
   </script>
 </body>
