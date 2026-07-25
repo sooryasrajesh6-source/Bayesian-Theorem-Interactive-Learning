@@ -1,1810 +1,809 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>
-        Bayesian Theorem Interactive Learning
-    </title>
-
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Segoe UI", sans-serif;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-
-            background: #020617;
-            color: white;
-            line-height: 1.6;
-
-        }
-
-
-
-        /* NAVBAR */
-
-
-        nav {
-
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 20px 8%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(2, 6, 23, .8);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-
-        }
-
-
-        .logo {
-
-            font-size: 24px;
-            font-weight: bold;
-            color: #38bdf8;
-
-        }
-
-
-        nav a {
-
-            color: white;
-            text-decoration: none;
-            margin-left: 25px;
-
-        }
-
-
-        nav a:hover {
-
-            color: #38bdf8;
-
-        }
-
-
-
-
-        /* HERO */
-
-
-        .hero {
-
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            overflow: hidden;
-            position: relative;
-
-        }
-
-
-        .background {
-
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            background: linear-gradient(45deg,
-                    #38bdf8,
-                    #a855f7);
-
-            filter: blur(120px);
-            animation: move 6s infinite alternate;
-
-        }
-
-
-
-        @keyframes move {
-
-            from {
-                transform: translate(-100px, -50px);
-            }
-
-            to {
-                transform: translate(100px, 50px);
-            }
-
-        }
-
-
-
-        .hero-content {
-
-            position: relative;
-            z-index: 2;
-
-        }
-
-
-        .hero h1 {
-
-            font-size: 70px;
-
-            background: linear-gradient(90deg,
-                    #38bdf8,
-                    #a855f7);
-
-            -webkit-background-clip: text;
-            color: transparent;
-
-        }
-
-
-
-        .hero p {
-
-            font-size: 24px;
-            color: #cbd5e1;
-            margin-top: 20px;
-
-        }
-
-
-
-        .btn {
-
-            margin-top: 30px;
-            padding: 15px 35px;
-            border-radius: 30px;
-            border: none;
-            cursor: pointer;
-
-            background: #38bdf8;
-            font-size: 18px;
-
-            transition: .3s;
-
-        }
-
-
-
-        .btn:hover {
-
-            transform: scale(1.1);
-            background: #a855f7;
-            color: white;
-
-        }
-
-
-
-
-
-        /* COMMON */
-
-
-        section {
-
-            padding: 90px 10%;
-
-        }
-
-
-        .title {
-
-            text-align: center;
-            font-size: 42px;
-            margin-bottom: 50px;
-
-        }
-
-
-
-
-        /* CARDS */
-
-
-        .container {
-
-            display: flex;
-            gap: 30px;
-            flex-wrap: wrap;
-
-        }
-
-
-        .card {
-
-            flex: 1;
-
-            background: #111827;
-            padding: 30px;
-
-            border-radius: 20px;
-
-            box-shadow: 0 10px 30px rgba(0, 0, 0, .4);
-
-            transition: .3s;
-
-        }
-
-
-        .card:hover {
-
-            transform: translateY(-10px);
-
-        }
-
-
-
-        .card h2 {
-
-            color: #38bdf8;
-            margin-bottom: 20px;
-
-        }
-
-
-
-
-
-        /* STORY */
-
-
-        .emoji {
-
-            font-size: 100px;
-            text-align: center;
-
-            animation: bounce 2s infinite;
-
-        }
-
-
-
-        @keyframes bounce {
-
-            50% {
-
-                transform: translateY(-20px);
-
-            }
-
-        }
-
-
-
-
-        .definition {
-
-            background: #111827;
-            padding: 35px;
-            border-left: 6px solid #38bdf8;
-            border-radius: 15px;
-
-            font-size: 20px;
-
-        }
-
-
-        /* --- NEW CHARACTER STYLES --- */
-
-        .characters {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .character {
-            background: #1e293b;
-            padding: 20px;
-            border-radius: 20px;
-            text-align: center;
-            width: 180px;
-            transition: .4s;
-        }
-
-        .character:hover {
-            transform: translateY(-15px) scale(1.05);
-            box-shadow: 0 0 25px #38bdf8;
-        }
-
-        .avatar {
-            font-size: 70px;
-            animation: characterMove 2s infinite alternate;
-        }
-
-        @keyframes characterMove {
-            from {
-                transform: translateY(0);
-            }
-            to {
-                transform: translateY(-12px);
-            }
-        }
-
-        .character h3 {
-            color: #38bdf8;
-            margin: 10px;
-        }
-
-        .story-flow {
-            font-size: 25px;
-            text-align: center;
-            margin-top: 30px;
-            animation: flow 3s infinite;
-        }
-
-        @keyframes flow {
-            50% {
-                transform: scale(1.1);
-            }
-        }
-
-
-        /* --- rest of your existing styles --- */
-
-
-        input {
-
-            display: block;
-
-            width: 100%;
-
-            padding: 15px;
-
-            margin: 15px 0;
-
-            border-radius: 10px;
-
-            border: none;
-
-            font-size: 18px;
-
-        }
-
-
-
-        .progress {
-
-            height: 35px;
-
-            background: #334155;
-
-            border-radius: 20px;
-
-            overflow: hidden;
-
-            margin: 15px 0;
-
-        }
-
-
-
-        .progress div {
-
-            height: 100%;
-
-            width: 10%;
-
-            background: linear-gradient(90deg,
-                    #38bdf8,
-                    #a855f7);
-
-            transition: 2s;
-
-        }
-
-
-
-        label {
-
-            font-size: 18px;
-
-            color: #cbd5e1;
-
-        }
-
-
-        .quiz-box {
-
-            max-width: 900px;
-
-            margin: auto;
-
-        }
-
-
-
-        .option {
-
-
-            width: 100%;
-
-            padding: 15px;
-
-            margin: 10px 0;
-
-            border: none;
-
-            border-radius: 15px;
-
-            background: #1e293b;
-
-            color: white;
-
-            font-size: 18px;
-
-            cursor: pointer;
-
-            transition: .3s;
-
-
-        }
-
-
-
-        .option:hover {
-
-            background: #38bdf8;
-
-            color: black;
-
-            transform: translateX(10px);
-
-        }
-
-
-
-
-        .correct {
-
-            background: #22c55e !important;
-
-        }
-
-
-
-        .wrong {
-
-            background: #ef4444 !important;
-
-        }
-
-
-
-
-        .final {
-
-            text-align: center;
-
-            font-size: 22px;
-
-            animation: glow 3s infinite alternate;
-
-        }
-
-
-
-        @keyframes glow {
-
-
-            from {
-
-                box-shadow: 0 0 10px #38bdf8;
-
-            }
-
-
-            to {
-
-                box-shadow: 0 0 40px #a855f7;
-
-            }
-
-
-        }
-
-
-
-
-        footer {
-
-
-            padding: 40px;
-
-            text-align: center;
-
-            background: #020617;
-
-            border-top: 1px solid #334155;
-
-            color: #cbd5e1;
-
-
-        }
-
-
-
-        footer h2 {
-
-            color: #38bdf8;
-
-            font-size: 35px;
-
-        }
-
-
-        /* process animation */
-        .process {
-            text-align: center;
-            animation: floatCard 3s infinite alternate;
-        }
-
-        @keyframes floatCard {
-            from {
-                transform: translateY(0);
-            }
-            to {
-                transform: translateY(-15px);
-            }
-        }
-    </style>
-
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Bayes Detective · Glassmorphism</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(145deg, #0b0e1a 0%, #1a1f2f 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+      color: #f0f3ff;
+    }
+
+    .slide-deck {
+      position: relative;
+      width: 1300px;
+      max-width: 100%;
+      height: 820px;
+      max-height: 92vh;
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(18px) saturate(180%);
+      -webkit-backdrop-filter: blur(18px) saturate(180%);
+      border-radius: 36px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 30px 50px rgba(0, 0, 0, 0.7), inset 0 1px 2px rgba(255, 255, 255, 0.08);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.2s;
+    }
+
+    .nav-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .slide-indicators {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+      padding: 0;
+    }
+
+    .dot.active {
+      background: #a78bfa;
+      width: 32px;
+      box-shadow: 0 0 16px #a78bfa88;
+    }
+
+    .arrow-nav {
+      display: flex;
+      gap: 10px;
+    }
+
+    .arrow-btn, .action-btn {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #f0f0ff;
+      height: 40px;
+      padding: 0 16px;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .arrow-btn {
+      width: 40px;
+      padding: 0;
+    }
+
+    .arrow-btn:hover, .action-btn:hover {
+      background: rgba(167, 139, 250, 0.25);
+      border-color: #a78bfa;
+      transform: scale(1.03);
+    }
+
+    .slides-wrapper {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      border-radius: 24px;
+      background: rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 24px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      transform: scale(0.98);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      scrollbar-width: thin;
+      scrollbar-color: #a78bfa33 transparent;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1);
+      z-index: 10;
+    }
+
+    h2 {
+      font-weight: 500;
+      font-size: 1.6rem;
+      color: #f0f3ff;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    h2 i {
+      color: #a78bfa;
+    }
+
+    .sub {
+      color: #b9c4ff;
+      font-weight: 300;
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+    }
+
+    .row {
+      display: flex;
+      gap: 20px;
+      flex: 1;
+    }
+
+    .col {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 20px;
+      padding: 20px;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 18px;
+    }
+
+    .clue-box {
+      background: rgba(167, 139, 250, 0.08);
+      border-left: 4px solid #a78bfa;
+      padding: 14px 18px;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .clue-box:hover {
+      background: rgba(167, 139, 250, 0.18);
+      transform: translateX(4px);
+    }
+    .clue-box.applied {
+      border-left-color: #34d399;
+      background: rgba(52, 211, 153, 0.1);
+    }
+    .clue-box .hidden-clue {
+      display: none;
+      margin-top: 8px;
+      font-size: 0.9rem;
+      color: #e8eeff;
+      background: rgba(0, 0, 0, 0.25);
+      padding: 10px;
+      border-radius: 10px;
+    }
+    .clue-box.revealed .hidden-clue {
+      display: block;
+    }
+
+    .meter {
+      background: rgba(0, 0, 0, 0.4);
+      height: 18px;
+      border-radius: 40px;
+      overflow: hidden;
+      margin: 8px 0;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .meter-fill {
+      height: 100%;
+      width: 20%;
+      background: linear-gradient(90deg, #a78bfa, #7c5cfc);
+      border-radius: 40px;
+      transition: width 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+    }
+
+    input[type=range] {
+      width: 100%;
+      margin: 8px 0;
+      -webkit-appearance: none;
+      background: transparent;
+    }
+    input[type=range]::-webkit-slider-runnable-track {
+      height: 6px;
+      background: #2a2f50;
+      border-radius: 10px;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #a78bfa;
+      margin-top: -6px;
+      box-shadow: 0 0 12px #a78bfaaa;
+      cursor: pointer;
+    }
+
+    .person-grid {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 6px;
+      max-width: 320px;
+      margin: 0 auto;
+    }
+    .person {
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: #2f3a6a;
+      transition: 0.3s;
+      border: 1px solid #4a5590;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6rem;
+    }
+    .person.sick {
+      background: #f472b6;
+      border-color: #f9a8d4;
+      box-shadow: 0 0 8px #f472b688;
+    }
+    .person.false-pos {
+      background: #fbbf24;
+      border-color: #fde047;
+    }
+
+    .tree {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      margin: 12px 0;
+    }
+    .tree-row {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      width: 100%;
+    }
+    .tree-node {
+      background: rgba(167, 139, 250, 0.1);
+      padding: 10px 16px;
+      border-radius: 30px;
+      border: 1px solid #a78bfa44;
+      font-size: 0.9rem;
+      transition: 0.3s;
+      text-align: center;
+    }
+    .tree-node.highlight {
+      background: #a78bfa44;
+      border-color: #a78bfa;
+      transform: scale(1.05);
+      box-shadow: 0 0 12px #a78bfa66;
+    }
+
+    .drag-zone {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin: 12px 0;
+      flex-wrap: wrap;
+    }
+    .drag-item {
+      background: #2a3158;
+      padding: 10px 20px;
+      border-radius: 30px;
+      cursor: grab;
+      border: 1px solid #4a5590;
+      user-select: none;
+      touch-action: none;
+    }
+    .drop-zone {
+      min-height: 100px;
+      border: 2px dashed #a78bfa66;
+      border-radius: 20px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
+      background: rgba(167, 139, 250, 0.03);
+      flex: 1;
+    }
+
+    .flip-card {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 16px;
+      padding: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .flip-card.flipped {
+      background: rgba(167, 139, 250, 0.15);
+      border-color: #a78bfa;
+    }
+
+    .score-progress {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 40px;
+      height: 10px;
+      width: 100%;
+      overflow: hidden;
+    }
+    .score-fill {
+      background: linear-gradient(90deg, #a78bfa, #c084fc);
+      height: 100%;
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+
+    #confetti-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
+      z-index: 999;
+    }
+
+    .badge {
+      background: rgba(167, 139, 250, 0.2);
+      border: 1px solid #a78bfa44;
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 850px) {
+      .row { flex-direction: column; }
+      .slide-deck { height: 95vh; padding: 16px; }
+      .slide { padding: 16px; }
+    }
+  </style>
 </head>
-
-
 <body>
-
-
-
-    <nav>
-
-
-        <div class="logo">
-
-            BayesLearn
-
+  <div class="slide-deck">
+    <div class="nav-bar">
+      <div class="slide-indicators">
+        <button class="dot active" data-index="0"></button>
+        <button class="dot" data-index="1"></button>
+        <button class="dot" data-index="2"></button>
+        <button class="dot" data-index="3"></button>
+        <button class="dot" data-index="4"></button>
+        <button class="dot" data-index="5"></button>
+        <button class="dot" data-index="6"></button>
+        <span style="color:#aab4f0; font-size:0.85rem; margin-left:8px;">Slide <span id="currentSlideIdx">1</span>/7</span>
+      </div>
+      <div style="display:flex; gap:10px;">
+        <button class="action-btn" id="fullscreenBtn"><i class="fas fa-expand"></i> Fullscreen</button>
+        <div class="arrow-nav">
+          <button class="arrow-btn" id="prevSlide"><i class="fas fa-chevron-left"></i></button>
+          <button class="arrow-btn" id="nextSlide"><i class="fas fa-chevron-right"></i></button>
         </div>
+      </div>
+    </div>
 
-
-        <div>
-
-            <a href="#story">
-                Story
-            </a>
-
-            <a href="#concept">
-                Concept
-            </a>
-
-            <a href="#calculator">
-                Calculator
-            </a>
-
-            <a href="#quiz">
-                Quiz
-            </a>
-
-        </div>
-
-
-    </nav>
-
-
-
-
-
-    <section class="hero">
-
-
-        <div class="background"></div>
-
-
-        <div class="hero-content">
-
-
-            <h1>
-                Bayesian Theorem
-            </h1>
-
-
-            <p>
-                Learn probability through stories, simulations and AI examples
-            </p>
-
-
-            <button class="btn" onclick="startLearning()">
-
-                Start Learning
-
-            </button>
-
-
-        </div>
-
-
-    </section>
-
-
-
-
-
-    <!-- ============ UPDATED STORY SECTION WITH CHARACTERS ============ -->
-
-    <section id="story">
-
-        <h1 class="title">
-            The Detective Story 🕵️
-        </h1>
-
-
-        <div class="container">
-
-
-            <!-- CHARACTERS CARD -->
-            <div class="card">
-
-                <h2>Characters</h2>
-
-                <div class="characters">
-
-                    <div class="character">
-                        <div class="avatar">🕵️</div>
-                        <h3>Detective Alex</h3>
-                        <p>Collects evidence and updates beliefs.</p>
-                    </div>
-
-                    <div class="character">
-                        <div class="avatar">👤</div>
-                        <h3>Suspect Bob</h3>
-                        <p>The person being investigated.</p>
-                    </div>
-
-                    <div class="character">
-                        <div class="avatar">🔬</div>
-                        <h3>Dr. Maya</h3>
-                        <p>Provides scientific evidence.</p>
-                    </div>
-
-                    <div class="character">
-                        <div class="avatar">📄</div>
-                        <h3>Evidence</h3>
-                        <p>New information changes probability.</p>
-                    </div>
-
-                </div>
-
+    <div class="slides-wrapper">
+      <!-- SLIDE 0: Detective Clues -->
+      <div class="slide active" data-index="0">
+        <h2><i class="fas fa-search"></i> Detective Bayes</h2>
+        <div class="sub">Click clues to dynamically compound evidence using Bayesian Likelihood Ratios</div>
+        <div class="row">
+          <div class="col" style="flex: 1.3;">
+            <div class="clue-box" data-lr="3.2" onclick="applyClue(this)">
+              <i class="fas fa-fingerprint"></i> <strong>Clue #1: Footprint Found</strong>
+              <div class="hidden-clue">👣 Footprint matches suspect's size. (Likelihood Ratio = 3.2x)</div>
             </div>
-
-
-
-            <!-- STORY CARD -->
-
-            <div class="card">
-
-                <h2>
-                    The Mystery Case 🔍
-                </h2>
-
-
-                <p>
-
-                    Detective Alex is investigating a mysterious crime.
-
-                    At the beginning, Alex thinks Bob might be guilty,
-                    but the confidence level is low.
-
-                </p>
-
-
-                <br>
-
-
-                <p>
-
-                    Dr. Maya discovers fingerprint evidence.
-                    The new evidence changes Alex's belief.
-
-                    Instead of guessing, Alex uses Bayesian Theorem
-                    to calculate the updated probability.
-
-                </p>
-
-
-                <br>
-
-
-                <div class="story-flow">
-
-                    <span>🕵️ Alex</span>
-
-                    ➡️
-
-                    <span>📄 Evidence</span>
-
-                    ➡️
-
-                    <span>🧮 Bayes Formula</span>
-
-                    ➡️
-
-                    <span>🎯 Decision</span>
-
-                </div>
-
-
+            <div class="clue-box" data-lr="5.5" onclick="applyClue(this)">
+              <i class="fas fa-dna"></i> <strong>Clue #2: Rare Fabric Fiber</strong>
+              <div class="hidden-clue">🧬 Fiber found matches suspect's jacket. (Likelihood Ratio = 5.5x)</div>
             </div>
-
-
+            <div class="clue-box" data-lr="0.3" onclick="applyClue(this)">
+              <i class="fas fa-user-shield"></i> <strong>Clue #3: Weak Alibi</strong>
+              <div class="hidden-clue">📱 Witness places suspect 2 miles away. (Likelihood Ratio = 0.3x)</div>
+            </div>
+            <button class="action-btn" style="margin-top:auto;" onclick="resetDetective()"><i class="fas fa-undo"></i> Reset Case</button>
+          </div>
+          <div class="col">
+            <div class="glass-card" style="text-align: center; padding: 30px 20px;">
+              <span class="badge">Prior Probability: 20%</span>
+              <div style="font-size:3.2rem; font-weight:300; margin: 16px 0;" id="detectivePosterior">20%</div>
+              <div class="meter"><div class="meter-fill" id="detectiveMeter" style="width:20%"></div></div>
+              <p style="font-size:0.85rem; color:#b9c4ff; margin-top:12px;" id="detectiveStatus">Base suspicion before evidence.</p>
+            </div>
+          </div>
         </div>
+      </div>
 
-
-    </section>
-
-
-
-
-
-    <section id="concept">
-
-
-        <h1 class="title">
-            Understanding Bayes Theorem
-        </h1>
-
-
-
-        <div class="definition">
-
-
-            Bayesian Theorem calculates the probability of an event
-            based on previous knowledge and new evidence.
-
-
-            <br><br>
-
-
-            It answers:
-
-            <b>
-                "How should our belief change when new information arrives?"
-            </b>
-
-
+      <!-- SLIDE 1: Visual Cohort -->
+      <div class="slide" data-index="1">
+        <h2><i class="fas fa-users"></i> 100-Person Medical Cohort</h2>
+        <div class="sub">Visualizing why positive results on rare conditions often yield low posterior probability.</div>
+        <div class="row">
+          <div class="col">
+            <div class="person-grid" id="personGrid"></div>
+          </div>
+          <div class="col">
+            <div class="glass-card">
+              <h3><i class="fas fa-chart-pie"></i> Breakdown</h3>
+              <p style="margin: 8px 0;"><span style="color:#f472b6;">■</span> Truly Sick: <strong>8</strong></p>
+              <p style="margin: 8px 0;"><span style="color:#fbbf24;">■</span> False Positives: <strong>6</strong></p>
+              <p style="margin: 8px 0;"><span style="color:#2f3a6a;">■</span> Healthy (Negative): <strong>86</strong></p>
+              <hr style="border-color: rgba(255,255,255,0.1); margin: 12px 0;">
+              <p>If tested positive, probability of being sick:</p>
+              <h2 style="color:#a78bfa; margin-top:4px;">8 / (8 + 6) = 57.1%</h2>
+            </div>
+          </div>
         </div>
+      </div>
 
-
-
-        <div class="card" style="margin-top:30px;text-align:center;font-size:35px;color:#38bdf8;">
-
-
-            P(A|B) =
-            (P(B|A) × P(A)) / P(B)
-
-
+      <!-- SLIDE 2: Probability Tree -->
+      <div class="slide" data-index="2">
+        <h2><i class="fas fa-tree"></i> Probability Tree</h2>
+        <div class="sub">Follow the branch pathways to trace prior and conditional probabilities</div>
+        <div class="tree">
+          <div class="tree-row"><span class="tree-node" id="tn0">Prior P(Disease) = 0.08</span></div>
+          <div class="tree-row">
+            <span class="tree-node" id="tn1">Sick: P(D) = 0.08</span>
+            <span class="tree-node" id="tn2">Healthy: P(¬D) = 0.92</span>
+          </div>
+          <div class="tree-row">
+            <span class="tree-node" id="tn3">True Pos: P(+|D) = 0.90</span>
+            <span class="tree-node" id="tn4">False Neg: P(-|D) = 0.10</span>
+            <span class="tree-node" id="tn5">False Pos: P(+|¬D) = 0.07</span>
+            <span class="tree-node" id="tn6">True Neg: P(-|¬D) = 0.93</span>
+          </div>
         </div>
+        <button class="action-btn" style="align-self:center;" onclick="animateTree()"><i class="fas fa-play"></i> Highlight Positive Path</button>
+      </div>
 
-
-    </section>
-
-    <!-- ================= CALCULATOR ================= -->
-
-    <section id="calculator">
-
-
-        <h1 class="title">
-            Interactive Bayes Calculator 🧮
-        </h1>
-
-
-        <div class="container">
-
-
-            <div class="card">
-
-
-                <h2>
-                    Enter Probability Values
-                </h2>
-
-
-                <label>
-                    Prior Probability P(A) (%)
-                </label>
-
-                <input id="pa" type="number" value="10">
-
-
-
-                <label>
-                    Likelihood P(B|A) (%)
-                </label>
-
-                <input id="pba" type="number" value="80">
-
-
-
-                <label>
-                    Evidence Probability P(B) (%)
-                </label>
-
-                <input id="pb" type="number" value="20">
-
-
-                <button class="btn" onclick="calculate()">
-
-                    Calculate Probability
-
-                </button>
-
-
-                <h2 id="answer">
-
-                    Result: --
-
-                </h2>
-
-
+      <!-- SLIDE 3: Interactive Sliders -->
+      <div class="slide" data-index="3">
+        <h2><i class="fas fa-sliders"></i> Bayes Calculator Sliders</h2>
+        <div class="sub">Adjust parameters in real-time to recalculate P(A|B)</div>
+        <div class="row">
+          <div class="col">
+            <div>
+              <label>Prior Prevalence P(D): <strong id="priorVal">0.08</strong></label>
+              <input type="range" min="0.01" max="0.5" step="0.01" value="0.08" id="priorSlider">
             </div>
-
-
-
-
-            <div class="card">
-
-
-                <h2>
-                    Formula Steps
-                </h2>
-
-
-                <p id="steps">
-
-                    Enter values and calculate.
-
-                </p>
-
-
+            <div>
+              <label>Sensitivity P(+|D): <strong id="sensVal">0.90</strong></label>
+              <input type="range" min="0.5" max="1" step="0.01" value="0.9" id="sensSlider">
             </div>
-
-
+            <div>
+              <label>False Positive Rate P(+|¬D): <strong id="fpVal">0.07</strong></label>
+              <input type="range" min="0.01" max="0.3" step="0.01" value="0.07" id="fpSlider">
+            </div>
+          </div>
+          <div class="col">
+            <div class="glass-card" style="text-align: center;">
+              <p>Posterior Probability P(D|+)</p>
+              <div style="font-size:3rem; font-weight:300; margin: 12px 0; color:#a78bfa;" id="bayesPosterior">52.8%</div>
+              <div class="meter"><div class="meter-fill" id="bayesMeter" style="width:52.8%"></div></div>
+            </div>
+          </div>
         </div>
+      </div>
 
-
-    </section>
-
-
-
-
-
-    <!-- ================= MEDICAL EXAMPLE ================= -->
-
-
-    <section>
-
-
-        <h1 class="title">
-
-            Medical Diagnosis Example 🏥
-
-        </h1>
-
-
-
-        <div class="container">
-
-
-            <div class="card">
-
-
-                <h2>
-                    Problem
-                </h2>
-
-
-                <p>
-
-                    A disease affects only 1% of people.
-
-                    A medical test is 90% accurate.
-
-                    A person tests positive.
-
-                    What is the chance the person actually has the disease?
-
-                </p>
-
-
-            </div>
-
-
-
-            <div class="card">
-
-
-                <h2>
-                    Bayesian Thinking
-                </h2>
-
-
-                <p>
-
-                    Bayes theorem combines:
-
-                    <br><br>
-
-                    ✔ Previous probability
-
-                    <br>
-
-                    ✔ Test accuracy
-
-                    <br>
-
-                    ✔ New evidence
-
-                    <br><br>
-
-                    to produce a better prediction.
-
-                </p>
-
-
-            </div>
-
-
+      <!-- SLIDE 4: Drag & Drop -->
+      <div class="slide" data-index="4">
+        <h2><i class="fas fa-arrows-alt"></i> Terminology Match</h2>
+        <div class="sub">Drag terms into their matching definition zone</div>
+        <div class="drag-zone" id="dragContainer">
+          <div class="drag-item" draggable="true" data-term="prior">Prior P(A)</div>
+          <div class="drag-item" draggable="true" data-term="likelihood">Likelihood P(B|A)</div>
+          <div class="drag-item" draggable="true" data-term="posterior">Posterior P(A|B)</div>
         </div>
-
-
-    </section>
-
-
-
-
-
-
-
-    <!-- ================= GRAPH ================= -->
-
-
-    <section>
-
-
-        <h1 class="title">
-
-            Probability Update Visualization 📊
-
-        </h1>
-
-
-
-        <div class="card">
-
-
-            <h2>
-                Before Evidence
-            </h2>
-
-
-            <div class="progress">
-
-                <div id="beforeBar"></div>
-
-            </div>
-
-
-            <br>
-
-
-
-            <h2>
-                After Evidence
-            </h2>
-
-
-            <div class="progress">
-
-                <div id="afterBar"></div>
-
-            </div>
-
-
-
-            <button class="btn" onclick="animateGraph()">
-
-                Show Evidence Effect
-
-            </button>
-
-
-
+        <div class="row">
+          <div class="drop-zone" data-zone="prior">
+            <strong>Prior Zone</strong>
+            <span style="font-size:0.8rem; color:#8a99ad;">Initial probability before evidence</span>
+          </div>
+          <div class="drop-zone" data-zone="likelihood">
+            <strong>Likelihood Zone</strong>
+            <span style="font-size:0.8rem; color:#8a99ad;">Probability of evidence given hypothesis</span>
+          </div>
+          <div class="drop-zone" data-zone="posterior">
+            <strong>Posterior Zone</strong>
+            <span style="font-size:0.8rem; color:#8a99ad;">Updated belief after considering evidence</span>
+          </div>
         </div>
+        <div id="dragFeedback" style="text-align:center; min-height:24px; color:#a78bfa;"></div>
+      </div>
 
+      <!-- SLIDE 5: Quiz Cards -->
+      <div class="slide" data-index="5">
+        <h2><i class="fas fa-question-circle"></i> Rapid Knowledge Quiz</h2>
+        <div class="sub">Click cards to reveal answer and test your understanding</div>
+        <div class="row">
+          <div class="col flip-card" onclick="flipCard(this)">
+            <strong>Question 1</strong>
+            <p style="margin-top:8px;">What happens to Posterior probability if Prior probability is extremely small?</p>
+            <div class="hidden-clue" style="display:none; margin-top:12px; color:#a78bfa;">It stays relatively small unless Likelihood Ratio is huge.</div>
+          </div>
+          <div class="col flip-card" onclick="flipCard(this)">
+            <strong>Question 2</strong>
+            <p style="margin-top:8px;">How is Likelihood Ratio calculated?</p>
+            <div class="hidden-clue" style="display:none; margin-top:12px; color:#a78bfa;">P(Evidence|Hypothesis) / P(Evidence|Alternative)</div>
+          </div>
+        </div>
+        <div style="margin-top:16px; display:flex; align-items:center; gap:16px;">
+          <span>Progress:</span>
+          <div class="score-progress"><div class="score-fill" id="scoreFill"></div></div>
+          <button class="action-btn" onclick="resetQuiz()"><i class="fas fa-rotate"></i> Reset</button>
+        </div>
+      </div>
 
-    </section>
+      <!-- SLIDE 6: Spam Filter -->
+      <div class="slide" data-index="6">
+        <h2><i class="fas fa-robot"></i> Practical Application: Spam Filter</h2>
+        <div class="sub">Real-world Naive Bayes classification for email filters</div>
+        <div class="row">
+          <div class="col">
+            <p>Every incoming word updates email spam likelihood:</p>
+            <div class="glass-card" style="margin-top:10px;">
+              <p>Word: <strong>"Winner"</strong> (LR: 3.5x)</p>
+              <p>Word: <strong>"Free"</strong> (LR: 2.1x)</p>
+              <p>Word: <strong>"Meeting"</strong> (LR: 0.2x)</p>
+            </div>
+            <button class="action-btn" style="margin-top:12px;" onclick="simulateSpam()"><i class="fas fa-envelope"></i> Test Random Email</button>
+          </div>
+          <div class="col" style="text-align: center;">
+            <p>Spam Probability</p>
+            <div style="font-size:3rem; font-weight:300; margin:12px 0;" id="spamScore">15%</div>
+            <div class="meter"><div class="meter-fill" id="spamMeter" style="width:15%"></div></div>
+            <p id="spamTag" style="margin-top:10px;" class="badge">Inbox</p>
+          </div>
+        </div>
+      </div>
+    </div>
 
+    <canvas id="confetti-canvas"></canvas>
+  </div>
 
+  <script>
+    (function() {
+      // --- Slides Nav ---
+      const slides = document.querySelectorAll('.slide');
+      const dots = document.querySelectorAll('.dot');
+      const prevBtn = document.getElementById('prevSlide');
+      const nextBtn = document.getElementById('nextSlide');
+      const slideIdxSpan = document.getElementById('currentSlideIdx');
+      let current = 0;
 
+      function goTo(index) {
+        if (index < 0) index = 0;
+        if (index >= slides.length) index = slides.length - 1;
+        slides.forEach((s, i) => s.classList.toggle('active', i === index));
+        dots.forEach((d, i) => d.classList.toggle('active', i === index));
+        current = index;
+        slideIdxSpan.textContent = index + 1;
+      }
 
+      dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+      prevBtn.addEventListener('click', () => goTo(current - 1));
+      nextBtn.addEventListener('click', () => goTo(current + 1));
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') goTo(current - 1);
+        if (e.key === 'ArrowRight') goTo(current + 1);
+      });
 
-    <script>
+      document.getElementById('fullscreenBtn').addEventListener('click', () => {
+        if (!document.fullscreenElement) document.documentElement.requestFullscreen?.();
+        else document.exitFullscreen?.();
+      });
 
+      // --- Detective Bayesian Math (Slide 0) ---
+      let currentPriorOdds = 0.20 / (1 - 0.20);
 
-        function calculate() {
+      window.applyClue = function(el) {
+        if (el.classList.contains('applied')) return;
+        el.classList.add('revealed', 'applied');
+        
+        const lr = parseFloat(el.dataset.lr);
+        currentPriorOdds *= lr;
+        const posteriorProb = currentPriorOdds / (1 + currentPriorOdds);
 
+        const pct = Math.round(posteriorProb * 100);
+        document.getElementById('detectivePosterior').textContent = pct + '%';
+        document.getElementById('detectiveMeter').style.width = pct + '%';
+        document.getElementById('detectiveStatus').textContent = `Applied LR of ${lr}x`;
+        fireConfetti(6);
+      };
 
+      window.resetDetective = function() {
+        currentPriorOdds = 0.20 / (1 - 0.20);
+        document.querySelectorAll('.clue-box').forEach(b => b.classList.remove('revealed', 'applied'));
+        document.getElementById('detectivePosterior').textContent = '20%';
+        document.getElementById('detectiveMeter').style.width = '20%';
+        document.getElementById('detectiveStatus').textContent = 'Base suspicion before evidence.';
+      };
 
-            let A =
-                Number(document.getElementById("pa").value) / 100;
-
-
-            let BA =
-                Number(document.getElementById("pba").value) / 100;
-
-
-            let B =
-                Number(document.getElementById("pb").value) / 100;
-
-
-
-            if (B === 0) {
-
-                document.getElementById("answer").innerHTML =
-                    "Invalid Probability";
-
-                return;
-
-            }
-
-
-
-            let result =
-                ((BA * A) / B) * 100;
-
-
-
-            document.getElementById("answer").innerHTML =
-
-                "Updated Probability = " +
-                result.toFixed(2) +
-                "%";
-
-
-
-            document.getElementById("steps").innerHTML =
-
-
-                `
-        Step 1:<br>
-        P(A) = ${A*100}%
-
-
-        <br><br>
-
-        Step 2:<br>
-        P(B|A) = ${BA*100}%
-
-
-        <br><br>
-
-
-        Step 3:<br>
-
-        Bayes Formula Applied
-
-
-        <br><br>
-
-
-        Final Answer:
-
-        <b>
-        ${result.toFixed(2)}%
-        </b>
-
-        `;
-
-
-
-            document.getElementById("afterBar")
-                .style.width = result + "%";
-
-
-
+      // --- 100 Person Grid (Slide 1) ---
+      function initCohort() {
+        const grid = document.getElementById('personGrid');
+        grid.innerHTML = '';
+        for (let i = 0; i < 100; i++) {
+          const p = document.createElement('div');
+          p.className = 'person';
+          if (i < 8) p.classList.add('sick');
+          else if (i < 14) p.classList.add('false-pos');
+          grid.appendChild(p);
         }
+      }
+      initCohort();
 
+      // --- Tree Animation (Slide 2) ---
+      window.animateTree = function() {
+        const path = ['tn0', 'tn1', 'tn3'];
+        document.querySelectorAll('.tree-node').forEach(n => n.classList.remove('highlight'));
+        path.forEach((id, idx) => {
+          setTimeout(() => document.getElementById(id).classList.add('highlight'), idx * 300);
+        });
+        setTimeout(() => fireConfetti(8), 900);
+      };
 
+      // --- Bayes Sliders (Slide 3) ---
+      const priorSlider = document.getElementById('priorSlider');
+      const sensSlider = document.getElementById('sensSlider');
+      const fpSlider = document.getElementById('fpSlider');
 
+      function updateBayes() {
+        const prior = parseFloat(priorSlider.value);
+        const sens = parseFloat(sensSlider.value);
+        const fp = parseFloat(fpSlider.value);
 
+        document.getElementById('priorVal').textContent = prior.toFixed(2);
+        document.getElementById('sensVal').textContent = sens.toFixed(2);
+        document.getElementById('fpVal').textContent = fp.toFixed(2);
 
+        const pPos = (prior * sens) + ((1 - prior) * fp);
+        const posterior = (prior * sens) / pPos;
+        const pct = (posterior * 100).toFixed(1);
 
-        function animateGraph() {
+        document.getElementById('bayesPosterior').textContent = pct + '%';
+        document.getElementById('bayesMeter').style.width = pct + '%';
+      }
+      [priorSlider, sensSlider, fpSlider].forEach(s => s.addEventListener('input', updateBayes));
+      updateBayes();
 
+      // --- Drag & Drop with Mobile Touch Support (Slide 4) ---
+      let draggedItem = null;
 
-            document.getElementById("beforeBar")
-                .style.width = "15%";
+      document.querySelectorAll('.drag-item').forEach(item => {
+        item.addEventListener('dragstart', (e) => draggedItem = item);
+        item.addEventListener('touchstart', (e) => {
+          draggedItem = item;
+        }, {passive: true});
+      });
 
+      document.querySelectorAll('.drop-zone').forEach(zone => {
+        zone.addEventListener('dragover', (e) => e.preventDefault());
+        zone.addEventListener('drop', (e) => handleDrop(zone));
+      });
 
-            document.getElementById("afterBar")
-                .style.width = "75%";
-
-
+      function handleDrop(zone) {
+        if (!draggedItem) return;
+        if (draggedItem.dataset.term === zone.dataset.zone) {
+          zone.appendChild(draggedItem);
+          document.getElementById('dragFeedback').textContent = ' ✅ Correct Match!';
+          fireConfetti(6);
+        } else {
+          document.getElementById('dragFeedback').textContent = ' ❌ Try another zone';
         }
+      }
 
-
-
-
-
-
-
-        function startLearning() {
-
-            document.getElementById("story")
-                .scrollIntoView();
-
+      // --- Flip Cards (Slide 5) ---
+      let score = 0;
+      window.flipCard = function(el) {
+        if (!el.classList.contains('flipped')) {
+          el.classList.add('flipped');
+          el.querySelector('.hidden-clue').style.display = 'block';
+          score += 50;
+          document.getElementById('scoreFill').style.width = score + '%';
+          fireConfetti(6);
         }
-    </script>
-    <!-- ================= APPLICATIONS ================= -->
-
-
-    <section>
-
-
-        <h1 class="title">
-            Bayesian Theorem in Real Life 🌍
-        </h1>
-
-
-
-        <div class="container">
-
-
-            <div class="card">
-
-
-                <h2>
-                    📧 Spam Detection
-                </h2>
-
-
-                <p>
-
-                    Email applications use Bayesian models to analyze:
-
-                    <br><br>
-
-                    • Words in emails
-
-                    <br>
-                    • Sender information
-
-                    <br>
-                    • Previous email patterns
-
-                    <br><br>
-
-                    The system predicts whether a message is spam
-                    or a genuine email.
-
-                </p>
-
-
-            </div>
-
-
-
-
-            <div class="card">
-
-
-                <h2>
-                    🤖 Artificial Intelligence
-                </h2>
-
-
-                <p>
-
-                    Machine learning systems use Bayesian methods
-                    to update predictions when new data arrives.
-
-                    <br><br>
-
-                    Examples:
-
-                    <br>
-
-                    • Recommendation systems
-
-                    <br>
-
-                    • AI assistants
-
-                    <br>
-
-                    • Prediction models
-
-                </p>
-
-
-            </div>
-
-
-
-
-
-            <div class="card">
-
-
-                <h2>
-                    🔍 Search Engines
-                </h2>
-
-
-                <p>
-
-                    Search engines estimate the probability of
-                    the user's intention and improve search results
-                    using probabilistic models.
-
-                </p>
-
-
-            </div>
-
-
-
-        </div>
-
-
-    </section>
-
-
-
-
-
-
-
-    <!-- ================= ML CONNECTION ================= -->
-
-
-    <section>
-
-
-        <h1 class="title">
-
-            Bayesian Learning in Machine Learning 🤖
-
-        </h1>
-
-
-
-        <div class="container">
-
-
-            <div class="card">
-
-
-                <h2>
-                    Traditional Learning
-                </h2>
-
-
-                <p>
-
-                    A model learns from existing data and creates
-                    a prediction.
-
-                </p>
-
-
-                <div class="emoji">
-
-                    📚
-
-                </div>
-
-
-            </div>
-
-
-
-
-
-            <div class="card">
-
-
-                <h2>
-                    Bayesian Learning
-                </h2>
-
-
-                <p>
-
-                    A model starts with a belief and continuously
-                    updates it when new information is received.
-
-                </p>
-
-
-                <div class="emoji">
-
-                    🔄
-
-                </div>
-
-
-            </div>
-
-
-
-            <div class="card">
-
-
-                <h2>
-                    Result
-                </h2>
-
-
-                <p>
-
-                    Better decisions under uncertainty.
-
-                    Bayesian approaches are useful when data is limited
-                    or changing.
-
-                </p>
-
-
-                <div class="emoji">
-
-                    🎯
-
-                </div>
-
-
-            </div>
-
-
-
-        </div>
-
-
-    </section>
-
-
-
-
-
-
-    <!-- ================= PROCESS ANIMATION ================= -->
-
-
-    <section>
-
-
-        <h1 class="title">
-
-            How Bayes Works ⚙️
-
-        </h1>
-
-
-
-        <div class="container">
-
-
-            <div class="card process">
-
-
-                <h2>
-                    1. Initial Belief
-                </h2>
-
-                <p>
-
-                    Start with previous knowledge.
-
-                </p>
-
-
-            </div>
-
-
-
-            <div class="card process">
-
-
-                <h2>
-                    2. New Evidence
-                </h2>
-
-
-                <p>
-
-                    Collect additional information.
-
-                </p>
-
-
-            </div>
-
-
-
-
-            <div class="card process">
-
-
-                <h2>
-                    3. Update Belief
-                </h2>
-
-
-                <p>
-
-                    Calculate new probability.
-
-                </p>
-
-
-            </div>
-
-
-
-        </div>
-
-
-    </section>
-
-
-
-
-
-    <!-- ================= QUIZ SECTION ================= -->
-
-
-    <section id="quiz">
-
-
-        <h1 class="title">
-
-            Test Your Knowledge 🧠
-
-        </h1>
-
-
-
-        <div class="card quiz-box">
-
-
-            <h2>
-                Question 1
-            </h2>
-
-
-            <p>
-                What does Bayesian Theorem calculate?
-            </p>
-
-
-            <button class="option" onclick="checkAnswer(this,false)">
-                Only average values
-            </button>
-
-
-            <button class="option" onclick="checkAnswer(this,true)">
-                Probability after receiving new evidence
-            </button>
-
-
-            <button class="option" onclick="checkAnswer(this,false)">
-                Only mathematical formulas
-            </button>
-
-
-
-            <hr>
-
-
-
-            <h2>
-                Question 2
-            </h2>
-
-
-            <p>
-                Bayesian Learning is mainly used in:
-            </p>
-
-
-
-            <button class="option" onclick="checkAnswer(this,true)">
-                Artificial Intelligence and Machine Learning
-            </button>
-
-
-            <button class="option" onclick="checkAnswer(this,false)">
-                Computer hardware repair
-            </button>
-
-
-            <button class="option" onclick="checkAnswer(this,false)">
-                Image editing only
-            </button>
-
-
-
-
-            <hr>
-
-
-
-            <h2>
-                Question 3
-            </h2>
-
-
-            <p>
-                P(A|B) represents:
-            </p>
-
-
-
-            <button class="option" onclick="checkAnswer(this,true)">
-                Probability of A after observing B
-            </button>
-
-
-            <button class="option" onclick="checkAnswer(this,false)">
-                Probability of B without evidence
-            </button>
-
-
-            <button class="option" onclick="checkAnswer(this,false)">
-                Total number of events
-            </button>
-
-
-
-            <h2 id="score">
-
-                Score: 0 / 3
-
-            </h2>
-
-
-
-            <button class="btn" onclick="restartQuiz()">
-
-                Restart Quiz
-
-            </button>
-
-
-
-        </div>
-
-
-
-    </section>
-
-
-
-
-
-
-
-
-    <!-- ================= FINAL SECTION ================= -->
-
-
-    <section>
-
-
-        <div class="card final">
-
-
-            <h1>
-                🎓 Learning Completed
-            </h1>
-
-
-
-            <p>
-
-
-                You explored Bayesian Theorem through:
-
-                <br><br>
-
-                ✔ Story-based learning
-
-                <br>
-
-                ✔ Interactive calculations
-
-                <br>
-
-                ✔ Real-world applications
-
-                <br>
-
-                ✔ Machine Learning concepts
-
-                <br>
-
-                ✔ Knowledge testing
-
-
-                <br><br>
-
-
-                <b>
-
-                    "Bayesian reasoning helps machines and humans
-                    make better decisions under uncertainty."
-
-                </b>
-
-
-            </p>
-
-
-
-        </div>
-
-
-    </section>
-
-
-
-
-
-
-
-
-    <!-- ================= FOOTER ================= -->
-
-    <footer>
-
-
-        <h2>
-            BayesLearn
-        </h2>
-
-
-        <p>
-
-            Interactive Bayesian Theorem Learning Platform
-
-        </p>
-
-
-        <br>
-
-
-        <p>
-
-            Created by
-
-            <b>
-                Soorya S Rajesh
-            </b>
-
-        </p>
-
-
-        <p>
-
-            Computer Science Engineering Student
-
-        </p>
-
-
-        <br>
-
-
-        <p>
-
-            © 2026 All Rights Reserved
-
-        </p>
-
-
-    </footer>
-
-
-
-
-
-
-
-    <script>
-
-
-        let quizScore = 0;
-
-
-
-        function checkAnswer(button, correct) {
-
-
-            if (button.disabled)
-                return;
-
-
-
-            if (correct) {
-
-                quizScore++;
-
-                button.classList.add("correct");
-
-
-            } else {
-
-                button.classList.add("wrong");
-
-            }
-
-
-
-            button.disabled = true;
-
-
-
-            document.getElementById("score").innerHTML =
-
-                "Score: " +
-                quizScore +
-                " / 3";
-
-
+      };
+
+      window.resetQuiz = function() {
+        score = 0;
+        document.getElementById('scoreFill').style.width = '0%';
+        document.querySelectorAll('.flip-card').forEach(c => {
+          c.classList.remove('flipped');
+          c.querySelector('.hidden-clue').style.display = 'none';
+        });
+      };
+
+      // --- Spam Filter Simulation (Slide 6) ---
+      window.simulateSpam = function() {
+        const isSpam = Math.random() > 0.4;
+        const score = isSpam ? Math.floor(Math.random() * 30 + 70) : Math.floor(Math.random() * 30 + 5);
+        
+        document.getElementById('spamScore').textContent = score + '%';
+        document.getElementById('spamMeter').style.width = score + '%';
+        
+        const tag = document.getElementById('spamTag');
+        if (score > 50) {
+          tag.textContent = 'Junk / Spam';
+          tag.style.background = 'rgba(244, 114, 182, 0.2)';
+        } else {
+          tag.textContent = 'Inbox';
+          tag.style.background = 'rgba(52, 211, 153, 0.2)';
         }
+      };
 
+      // --- Confetti Engine ---
+      const canvas = document.getElementById('confetti-canvas');
+      const ctx = canvas.getContext('2d');
+      let pieces = [];
 
+      function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+      window.addEventListener('resize', resizeCanvas);
+      resizeCanvas();
 
-
-
-        function restartQuiz() {
-
-
-            quizScore = 0;
-
-
-            document.getElementById("score").innerHTML =
-                "Score: 0 / 3";
-
-
-
-            let buttons = document.querySelectorAll(".option");
-
-
-            buttons.forEach(btn => {
-
-
-                btn.disabled = false;
-
-                btn.classList.remove("correct");
-
-                btn.classList.remove("wrong");
-
-
-            });
-
-
+      function fireConfetti(count = 15) {
+        const colors = ['#a78bfa', '#f472b6', '#34d399', '#fbbf24'];
+        for (let i = 0; i < count; i++) {
+          pieces.push({
+            x: Math.random() * canvas.width,
+            y: -10,
+            w: 8, h: 8,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            vy: 2 + Math.random() * 4,
+            vx: (Math.random() - 0.5) * 2,
+            rot: Math.random() * 360
+          });
         }
-    </script>
+        if (!window.animating) animateConfetti();
+      }
 
+      function animateConfetti() {
+        window.animating = true;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        pieces = pieces.filter(p => p.y < canvas.height);
+        pieces.forEach(p => {
+          p.y += p.vy;
+          p.x += p.vx;
+          ctx.fillStyle = p.color;
+          ctx.fillRect(p.x, p.y, p.w, p.h);
+        });
+        if (pieces.length > 0) requestAnimationFrame(animateConfetti);
+        else window.animating = false;
+      }
+    })();
+  </script>
 </body>
-
 </html>
